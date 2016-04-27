@@ -26,6 +26,10 @@ MAX = 1000001
 cache = [0] * MAX
 
 def cycle_length(value):
+    """
+    n: positive integer  
+    cache computed value
+    """
     if value < MAX and cache[value] != 0:
         return cache[value]
     if value == 1:
