@@ -38,7 +38,6 @@ def cycle_length(value):
             return cache[value]
         else:
             return 2 + cycle_length(int( (3*value + 1)/2 ))
-    
     else:
         if value < MAX:
             cache[value] = 1+ cycle_length(int(value/2))
@@ -49,7 +48,7 @@ def cycle_length(value):
 while True:
     try:
         data = input()
-        v1, v2 = map(lambda x: int(x), data.split(' '))
+        v1, v2 = map(lambda x: int(x), data.split())
         out = 0
         for v in range(min(v1, v2), max(v1, v2)+1):
             sol = cycle_length(v)
