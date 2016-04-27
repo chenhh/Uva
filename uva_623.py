@@ -7,9 +7,9 @@ https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_
 import math
 while True:
 	try:
-		v = input()
-		value = int(v)
-		print ("{}!".format(value))
-		print ("{}".format(math.factorial(value)))
+	    v = input()
+	    value = int(v)
+	    print ("{}!".format(value))
+	    print ("{}".format(math.factorial(value)))
 	except (EOFError):
-		break
+	    break
