@@ -11,7 +11,7 @@ from array import array
 def cycle_length_orig(n):
     """
     n: positive integer  
-    time　limit　exceeed　version
+    TLE　version
     """
     cnt = 1
     while (n != 1):
@@ -48,16 +48,20 @@ def cycle_length(value):
             return cache[value]
         else:
             return 1+ cycle_length(int(value/2))
-                 
-while True:
-    try:
-        data = input()
-        v1, v2 = map(lambda x: int(x), data.split())
-        out = 0
-        for v in range(min(v1, v2), max(v1, v2)+1):
-            sol = cycle_length(v)
-            if  sol > out:
-                out = sol
-        print ("{} {} {}".format(v1, v2, out))
-    except (EOFError):
-        break
+
+def main():
+    while True:
+        try:
+            data = input()
+            v1, v2 = map(lambda x: int(x), data.split())
+            out = 0
+            for v in range(min(v1, v2), max(v1, v2)+1):
+                sol = cycle_length(v)
+                if  sol > out:
+                    out = sol
+            print ("{} {} {}".format(v1, v2, out))
+        except (EOFError):
+            break
+
+if __name__ == '__main__':
+    main()

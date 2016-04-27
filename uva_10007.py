@@ -17,10 +17,14 @@ def Catalan(n):
     return val
         
 
-while True:
-    v = input()
-    value = int(v)
-    if value == 0:
-        break
-    print (Catalan(value))
+def main():
+    while True:
+        v = input()
+        value = int(v)
+        if value == 0:
+            break
+        print (Catalan(value))
+
+if __name__ == '__main__':
+    main()
     
