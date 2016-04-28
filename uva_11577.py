@@ -3,6 +3,8 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 status: AC
+difficulty: 1
+
 https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=27&page=show_problem&problem=2624
 http://luckycat.kshs.kh.edu.tw/homework/q11577.htm
 """

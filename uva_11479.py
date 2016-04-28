@@ -3,6 +3,8 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 status: AC
+difficulty: 1
+
 http://luckycat.kshs.kh.edu.tw/homework/q11479.htm
 """
 def main():

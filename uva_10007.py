@@ -2,8 +2,10 @@
 """
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
+status: AC
+difficulty: 1
+
 https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=948
-status:AC
 
 If given no. of Nodes are N Then
     Different No. of BST=Catalan(N)
