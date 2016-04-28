@@ -2,6 +2,7 @@
 """
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
+status:AC
 https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=18&page=show_problem&problem=1637
 http://luckycat.kshs.kh.edu.tw/homework/q10696.htm
 
