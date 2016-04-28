@@ -4,6 +4,7 @@ Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=36
 http://acm-solution.blogspot.tw/2010/08/acm-uva-100-3n-1-problem.html
+status:AC
 min: 1, maximum: 1,000,000
 """
 from array import array
