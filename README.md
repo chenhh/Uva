@@ -1,3 +1,3 @@
 # Uva
 My Uva online judge code
-Using Python 3.5.1
+using Python 3.5.1
