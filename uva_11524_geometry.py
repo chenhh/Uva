@@ -23,6 +23,7 @@ def main():
         m1, n1 = map(float, input().split())
         m2, n2 = map(float, input().split())
         m3, n3 = map(float, input().split())
+        # all edges scale to n1
         n2 = n2 / m2 * n1
         m2 = n1
         n3 = n3 / m3 * n2
@@ -30,6 +31,7 @@ def main():
         a,b,c = m1 + n1, m2 + n2, m3 + n3
         s = (a+b+c)/2
         t_area = math.sqrt(s*(s-a)*(s-b)*(s-c))
+        # scale value
         x = r/t_area*(a+b+c)/2
         print ("{:.4f}".format(x*x*t_area))
         
