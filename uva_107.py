@@ -26,11 +26,12 @@ def main():
 
         # decomposition
         for np1 in range(2, height+1):
-            k, tmp_height = 0, height
+            k, tmp_height, tmp_worker = 0, height, 1
             while (tmp_height % np1 == 0 and tmp_height != 1):
                 tmp_height /= np1
+                tmp_worker *= (np1-1)
                 k += 1
-            if (np1 -1) ** k == worker:
+            if tmp_worker == worker:
                 break
         n = np1 - 1
         # print(n, k)
