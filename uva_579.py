@@ -6,8 +6,8 @@ status: AC
 difficulty: 1
 http://luckycat.kshs.kh.edu.tw/homework/q579.htm
 math
-
 """
+
 def main():
     while True:
         curr = input()
