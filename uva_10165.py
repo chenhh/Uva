@@ -9,8 +9,8 @@ par.cse.nsysu.edu.tw/~advprog/.../10165.doc
 
 analysis the endgame: (safe, and unsafe endgame)
 If the number of stone in a pile is even, then I must win.
-If there are stones in different piles, do xor operations (enemy and I both act once) in all piles. 
-If the value still be even, I must win.
+If there are stones in different piles, do xor operations (enemy and I both act at least once) in all piles. 
+If the value still be even, then I must win.
 """
 
 def main():
