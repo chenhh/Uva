@@ -6,6 +6,8 @@ status: AC
 difficulty: 2
 https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=13&page=show_problem&problem=1106
 par.cse.nsysu.edu.tw/~advprog/.../10165.doc
+
+analysis the endgame: (safe, and unsafe endgame)
 """
 
 def main():
