@@ -2,10 +2,11 @@
 """
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
-status: AC
-difficulty: 1
+status: TLE
+difficulty: 2
 
 https://uva.onlinejudge.org/external/5/583.pdf
+there are 6542 primes between 0~65536
 """
 
 import array
@@ -34,38 +35,65 @@ def linear_sieve(N):
             if (idx % primes[jdx] == 0):
                 break
             jdx += 1
-    return (sieves, frozenset(primes))
+    return (sieves, primes)
 
+def factor_tables():
+    factors = {
+        4:{2: 2}, 6:{2:1, 3:1}}
 
 def main():
     # 65536 = 2**16
-    sieves, primes = linear_sieve(65536)
+    from time import time
+    t = time()
+    BOUND = 65536
+    import os
 
-    prime_set = frozenset(primes)
-    n_primes = len(primes)
-
-    while True:
-        value = int(input())
-        if value == 0:
-            break
-
-        tmp = abs(value)
-        if tmp in prime_set:
-            if value > 0:
-                print ("{} = {}".format(value, value))
-            else:
-                print("{} = -1 x {}".format(value, tmp))
+    sieves, primes = linear_sieve(BOUND)
+    factors = {}
+    for value in range(2, BOUND+1):
+        if sieves[value]:
+            factors[value] = [value,]
         else:
-            prime_dict={}
-            for idx, prime in enumerate(primes):
-                while (tmp >= 1 and tmp % prime == 0):
-                    tmp //=prime
-                    if prime in prime_dict.keys():
-                        prime_dict[prime] += 1
-                    else:
-                        prime_dict[prime] = 1
+            # composite
+            tmp = value
+            idx = 0
+            factors[value] = []
+            while primes[idx] * primes[idx] <= value:
+                while (tmp >= 1 and tmp % primes[idx] == 0):
+                    tmp = tmp // primes[idx]
+                    factors[value].append(primes[idx])
+                idx += 1
+            if tmp != 1:
+                factors[value].append(tmp)
+        print ("{}: {}, ".format(value, factors[value]))
+    print (time()-t)
 
 
+    # while True:
+    #     value = int(input())
+    #     if value == 0:
+    #         break
+    #
+    #     outputs = []
+    #     if value < 0:
+    #         outputs.append(-1)
+    #     tmp = abs(value)
+    #
+    #     if tmp <= BOUND:
+    #         outputs.extend(factors[tmp])
+    #     else:
+    #         # tmp > BOUND
+    #         while primes[idx] * primes[idx] <= abs(value):
+    #             while (tmp >= 1 and tmp % primes[idx] == 0):
+    #                 tmp //= primes[idx]
+    #             idx += 1
+    #
+    #         # tmp is prime and > BOUND
+    #         if tmp > BOUND:
+    #             factors.append(str(tmp))
+    #
+    #     factor_str = " x ".join(factors)
+    #     print ("{} = {}".format(value, factor_str))
 
 if __name__ == '__main__':
     main()
