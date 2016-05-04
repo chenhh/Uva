@@ -73,4 +73,4 @@ def test_prime(N):
 
 
 if __name__ == '__main__':
-    test_prime(23)
+    test_prime(65536)
