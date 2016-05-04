@@ -7,7 +7,7 @@ difficulty: 2
 
 https://uva.onlinejudge.org/external/5/583.pdf
 there are 6542 primes between 0~65536
-The python version must be TLE
+The python version usually TLE (it cost 3.89 secs)
 
 """
 
