@@ -5,7 +5,7 @@ License: GPL v2
 status: AC
 difficulty: 1
 https://uva.onlinejudge.org/external/104/10420.pdf
-the same name in the same country are different.
+The same names  in the same country are different women.
 """
 
 def main():
