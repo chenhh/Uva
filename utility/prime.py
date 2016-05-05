@@ -71,6 +71,17 @@ def test_prime(N):
     if correct:
         print ("all results from 0 to {} are correct.".format(N))
 
+def square_root(Y):
+    """
+    for big number
+    """
+    EPS = 1e-3
+    a, b = 1, Y
+    while (abs(a-b)>EPS):
+        a = (a+b)//2
+        b = Y//a
+    return a
+
 
 if __name__ == '__main__':
     test_prime(65536)
