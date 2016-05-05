@@ -33,7 +33,7 @@ def dfs_iterative(graph, start_node):
         if not walked[node]:
             walked[node] = True
             seqs.append(node)
-            for child in graph[node]:
+            for child in filter(lambda x: not walked[x], graph[node]):
                 stack.append(child)
     print (seqs)
     return bicolor

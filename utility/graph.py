@@ -28,6 +28,7 @@ def dfs_iterative(graph, start_node):
             print (node)
             sequences.append(node)
             for child in graph[node]:
-                stack.append(child)
+                if not walked[child]:
+                    stack.append(child)
 
     return sequences
