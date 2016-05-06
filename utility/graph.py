@@ -3,32 +3,28 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 """
-
-def dfs_iterative(graph, start_node):
-    """
-    the graph contains node from 0 ~ (n-1)
-    assume the graph will be strongly connected
-
-    Parameters:
-    -----------------------
-    graph: list of list, graph[idx] contains the list of edges
-    start_node，integer, the dfs start node
-
-    Return:
-    -----------------------
-    sequences: list, the sequence of DFS traversal
-    """
+def dfs_bicolor(graph, start_node):
+    # print (graph)
     stack = [start_node,]
-    walked = [False] * len(graph)
-    sequences = []
+    n_node = len(graph)
+    colors= [-1] * n_node
+    colors[start_node] = 0
+    walked = [False] * n_node
+    bicolor = True
 
     while len(stack) > 0:
         node = stack.pop()
-        if not walked[node]:
-            print (node)
-            sequences.append(node)
-            for child in graph[node]:
-                if not walked[child]:
-                    stack.append(child)
+        if not bicolor:
+            break
 
-    return sequences
+        if not walked[node]:
+            walked[node] = True
+            for child in graph[node]:
+                if colors[child] == -1:
+                    colors[child] = 1 - colors[node]
+                elif colors[child] != 1 - colors[node]:
+                    bicolor = False
+                    break
+                stack.append(child)
+    return bicolor
+es
