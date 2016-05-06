@@ -17,25 +17,31 @@ graph + DFS or BFS
 2 3
 0
 BICOLORABLE
-
 """
 
-def dfs_iterative(graph, start_node):
+def dfs_bicolor(graph, start_node):
     # print (graph)
     stack = [start_node,]
     n_node = len(graph)
+    colors= [-1] * n_node
+    colors[start_node] = 0
     walked = [False] * n_node
-    seqs = []
-
     bicolor = True
+
     while len(stack) > 0:
         node = stack.pop()
+        if not bicolor:
+            break
+
         if not walked[node]:
             walked[node] = True
-            seqs.append(node)
-            for child in filter(lambda x: not walked[x], graph[node]):
+            for child in graph[node]:
+                if colors[child] == -1:
+                    colors[child] = 1 - colors[node]
+                elif colors[child] != 1 - colors[node]:
+                    bicolor = False
+                    break
                 stack.append(child)
-    print (seqs)
     return bicolor
 
 def main():
@@ -52,7 +58,7 @@ def main():
             graph[n1].append(n2)
             graph[n2].append(n1)
 
-        bicolor = dfs_iterative(graph, 0)
+        bicolor = dfs_bicolor(graph, 0)
 
         if not bicolor:
             print ("NOT BICOLORABLE.")
