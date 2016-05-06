@@ -6,18 +6,6 @@ status: AC
 difficulty: 1
 
 https://uva.onlinejudge.org/external/117/11713.pdf
-hist
-heat
-NO
-
-goths
-gates
-NO
-
-jumps
-james
-NO
-
 """
 
 def main():
