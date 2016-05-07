@@ -1,3 +1,11 @@
+/*
+Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
+License: GPL v2
+status: TLE
+difficulty: 1
+https://uva.onlinejudge.org/external/102/10226.pdf
+*/
+
 #include <iostream>
 #include <iomanip>
 #include <string>
