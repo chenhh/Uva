@@ -8,33 +8,50 @@ difficulty: 1
 https://uva.onlinejudge.org/external/102/10226.pdf
 both using dict or list with bisect will be TLE
 """
-import bisect
+
+def bisect_count(forest, tree):
+    """
+    bisect right
+    """
+    lo, hi =0, len(forest)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if tree < forest[mid][0]:
+            hi = mid
+        else:
+            lo = mid + 1
+    # print ("insert point:", lo)
+
+    if lo == 0:
+        # no element in forest
+        forest.insert(0, [tree, 1])
+    elif forest[lo-1][0] == tree:
+        # the tree exists in forest
+        forest[lo-1][1] += 1
+    else:
+        # the tree not in forest
+        forest.insert(lo, [tree, 1])
+
+    return forest
 
 def main():
     cases = int(input())
     _ = input()
 
     for cdx in range(cases):
-        # species_name = []
-        species_cnt ={}
+        species = []
         tree_cnt = 0
 
-        while True:
+        while 1:
             tree = input().strip()
             if len(tree) == 0:
                 break
-
-            if tree in species_cnt:
-                species_cnt[tree] += 1
-            else:
-                # bisect.insort_right(species_name, tree)
-                species_cnt[tree] = 1
             tree_cnt += 1
+            bisect_count(species, tree)
 
-        keys = sorted(species_cnt.keys())
-        for key in keys:
-            percent = species_cnt[key]/tree_cnt * 100
-            print("{} {:.4f}".format(key, percent))
+        for tree, cnt in species:
+            percent = cnt/tree_cnt * 100
+            print("{} {:.4f}".format(tree, percent))
 
         if cdx != cases-1:
             # blank line between consecutive cases
