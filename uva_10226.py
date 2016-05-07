@@ -2,54 +2,43 @@
 """
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
-status: on judge
+status: TLE
 difficulty: 1
 
 https://uva.onlinejudge.org/external/102/10226.pdf
+both using dict or list with bisect will be TLE
 """
 import bisect
 
-
 def main():
     cases = int(input())
+    _ = input()
 
-    case_cnt = 0
-    species = []
-    while True:
-        try:
+    for cdx in range(cases):
+        # species_name = []
+        species_cnt ={}
+        tree_cnt = 0
+
+        while True:
             tree = input().strip()
-
-            if len(tree) > 0:
-                bisect.insort_right(species, tree)
-            else:
-                if case_cnt >= 1 and case_cnt <= cases:
-                    n_tree = len(species)
-                    if n_tree == 0:
-                        print ("")
-                    else:
-                        sdx = 0
-                        # print ("{} {}: {}".format(case_cnt, n_tree, species))
-                        for tdx, tree in enumerate(species):
-                            if ((tdx >=1 and species[tdx-1] != tree)):
-                                # print (tdx, sdx)
-                                percent = (tdx-sdx)/n_tree * 100
-                                print ("{} {:.4f}".format(
-                                    species[sdx], percent ))
-                                sdx = tdx
-                        # print last set
-                        percent = (n_tree-sdx)/n_tree * 100
-                        print("{} {:.4f}".format(species[sdx], percent))
-
-                    if case_cnt != cases:
-                        print("")
-
-                case_cnt += 1
-                species = []
-
-            if case_cnt > cases:
+            if len(tree) == 0:
                 break
-        except (EOFError):
-            break
+
+            if tree in species_cnt:
+                species_cnt[tree] += 1
+            else:
+                # bisect.insort_right(species_name, tree)
+                species_cnt[tree] = 1
+            tree_cnt += 1
+
+        keys = sorted(species_cnt.keys())
+        for key in keys:
+            percent = species_cnt[key]/tree_cnt * 100
+            print("{} {:.4f}".format(key, percent))
+
+        if cdx != cases-1:
+            # blank line between consecutive cases
+            print("")
 
 if __name__ == '__main__':
     main()
