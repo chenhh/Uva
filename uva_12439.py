@@ -41,10 +41,10 @@ def main():
                     year += 1
                 elif months[idx] == 2 and days[idx] == 29:
                     if contains[idx]:
-                        # the end year
+                        # the end year contains the leap day.
                         year += 1
                     else:
-                        # The start year
+                        # The start year contains the leap day
                         year -= 1
                 else:
                     # This year must contain the leap day.
