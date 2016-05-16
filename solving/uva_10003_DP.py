@@ -3,7 +3,7 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 status: working
-difficulty: 1
+difficulty: 2
 
 https://uva.onlinejudge.org/external/100/10003.pdf
 http://luckycat.kshs.kh.edu.tw/homework/q10003.htm
@@ -23,7 +23,7 @@ def min_cut(L, N, points):
     cost[0][10] = min (cost[0][2] + cost[2][10] + 10,
                        cost[0][4] + cost[4][10] + 10,
                        cost[0][7] + cost[7][10] + 10)
-    cost[0][2] = 2, cost[7][10]= 3,
+    cost[0][2] = 0, cost[7][10]= 0, because of no cut in [0,2] and [7, 10].
     other items requires further steps.
     """
 
