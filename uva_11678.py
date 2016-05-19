@@ -29,6 +29,7 @@ def main():
         # non-descending order
         A_cards = set(map(int, input().split()))
         B_cards = set(map(int, input().split()))
+        # set difference
         ans = min(len(A_cards - B_cards), len(B_cards - A_cards))
         print (ans)
 
