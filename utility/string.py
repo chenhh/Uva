@@ -60,4 +60,5 @@ def word_token(data):
     return words
     
 def palindrome(word):
-    return all(word[idx] == word[len(word)-idx-1] for idx in range(len(word)//2)))
+    return all(word[idx] == word[len(word)-idx-1]
+               for idx in range(len(word)//2))
