@@ -47,5 +47,6 @@ def main():
         # show blank between two cases
         print("")
 
+
 if __name__ == '__main__':
     main()

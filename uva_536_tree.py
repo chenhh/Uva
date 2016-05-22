@@ -2,54 +2,15 @@
 """
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
+
+status: AC
+difficulty: 1
+
+https://uva.onlinejudge.org/external/5/536.pdf
+http://luckycat.kshs.kh.edu.tw/homework/q536.htm
+
+given pre-order and in-order traversal of a tree, print the post-order
 """
-
-def pre_order_to_binary_search_tree(nodes):
-    """
-    dict to implement binary tree,
-    nodes: list of values
-    """
-    stack = []
-    tree = {}
-    stack.append((nodes, tree))
-
-    while len(stack):
-        sub_nodes, sub_tree = stack.pop()
-        root = sub_nodes[0]
-        sub_tree['value'] = root
-
-        if len(sub_nodes) == 1:
-            # leaf node
-            sub_tree['lchild'] = sub_tree['rchild'] = None
-        else:
-            # internal node
-            smaller = 0
-            for node in sub_nodes[1:]:
-                if node > root:
-                    break
-                smaller += 1
-            # print ("sub_nodes:", sub_nodes, root)
-            # print ("slice:", smaller, sub_nodes[1:1+smaller],
-            #        sub_nodes[1 + smaller:])
-            # check left sub-tree
-            if smaller:
-                left_children = sub_nodes[1:1 + smaller]
-                sub_tree['lchild'] = {}
-                stack.append((left_children, sub_tree['lchild']))
-            else:
-                sub_tree['lchild'] = None
-
-            # check right sub-tree
-            larger = len(sub_nodes) - smaller - 1
-            if larger:
-                right_children = sub_nodes[1 + smaller:]
-                sub_tree['rchild'] = {}
-                stack.append((right_children, sub_tree['rchild']))
-            else:
-                sub_tree['rchild'] = None
-
-    return tree
-
 
 def pre_in_order_to_tree(pre_nodes, in_nodes):
     """
@@ -105,16 +66,6 @@ def pre_in_order_to_tree(pre_nodes, in_nodes):
     return tree
 
 
-def pre_order(tree, output=[]):
-    """ value -> left -> right """
-    if not tree:
-        return
-    output.append(tree['value'])
-    pre_order(tree['lchild'], output)
-    pre_order(tree['rchild'], output)
-    return output
-
-
 def post_order(tree, output=[]):
     """ left -> right -> value """
     if not tree:
@@ -123,3 +74,16 @@ def post_order(tree, output=[]):
     post_order(tree['rchild'], output)
     output.append(tree['value'])
     return output
+
+def main():
+    while 1:
+        try:
+            pre_nodes, in_nodes = input().split()
+            tree = pre_in_order_to_tree(pre_nodes, in_nodes)
+            output = post_order(tree, [])
+            print ("".join(output))
+        except (EOFError):
+            break
+
+if __name__ == '__main__':
+    main()
