@@ -12,7 +12,7 @@ given pre-order, to get post-order
 the first element is the root node, and the nodes which are smaller than
 the root node are in the left-subtree, other nodes are in the right-subtree.
 """
-import pprint
+
 
 def pre_order_to_tree(nodes):
     """
@@ -59,26 +59,23 @@ def pre_order_to_tree(nodes):
     return tree
 
 
-def post_order(tree):
-    """ left-> right-> value """
-    stack = [tree, ]
-    output = []
-    while len(stack):
-        node = stack.pop()
-        pprint.pprint(node)
-        print ('-'*60)
-        # left sub_tree
-        if node['lchild']:
-            stack.append(node['lchild'])
+def pre_order(tree, output=[]):
+    """ value -> left -> right """
+    if not tree:
+        return
+    output.append(tree['value'])
+    pre_order(tree['lchild'])
+    pre_order(tree['rchild'])
+    return output
 
-        # right sub_tree
-        if node['rchild']:
-            stack.append(node['rchild'])
 
-        if not node['lchild'] and not node['rchild']:
-            output.append(node['value'])
-
-    print(output)
+def post_order(tree, output=[]):
+    """ left -> right -> value """
+    if not tree:
+        return
+    post_order(tree['lchild'])
+    post_order(tree['rchild'])
+    output.append(tree['value'])
     return output
 
 
@@ -91,16 +88,20 @@ def main():
             nodes.append(node)
         except (EOFError):
             tree = pre_order_to_tree(nodes)
-            print(post_order(tree))
+            outputs = post_order(tree)
+            for val in outputs:
+                print(val)
+            break
 
+
+def test():
+    import pprint
+    pre_order_list = [50, 30, 24, 5, 28, 45, 98, 52, 60]
+    tree = pre_order_to_tree(pre_order_list)
+    pre_order_list2 = pre_order(tree)
+    pprint.pprint(tree)
+    assert pre_order_list == pre_order_list2
 
 
 if __name__ == '__main__':
-    # main()
-    # print (pre_order_to_tree([10,2,1,12]))
-    import pprint
-    # tree = pre_order_to_tree([4, 2, 1, 3, 5, 0])
-    tree = pre_order_to_tree([50, 30, 24, 5, 28, 45, 98, 52, 60])
-    # pprint.pprint(tree)
-    output = post_order(tree)
-    print(output)
+    main()

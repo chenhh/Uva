@@ -50,3 +50,22 @@ def pre_order_to_tree(nodes):
 
     return tree
 
+
+def pre_order(tree, output=[]):
+    """ value -> left -> right """
+    if not tree:
+        return
+    output.append(tree['value'])
+    pre_order(tree['lchild'])
+    pre_order(tree['rchild'])
+    return output
+
+
+def post_order(tree, output=[]):
+    """ left -> right -> value """
+    if not tree:
+        return
+    post_order(tree['lchild'])
+    post_order(tree['rchild'])
+    output.append(tree['value'])
+    return output
