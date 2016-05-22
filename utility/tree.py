@@ -105,6 +105,55 @@ def pre_in_order_to_tree(pre_nodes, in_nodes):
     return tree
 
 
+def post_in_order_to_tree(post_nodes, in_nodes):
+    """
+    dict to implement a binary tree,
+    nodes: list of values
+    """
+    tree = {}
+    stack = []
+    stack.append((post_nodes, in_nodes, tree))
+    while len(stack):
+        sub_post_nodes, sub_in_nodes, sub_tree = stack.pop()
+        root = sub_post_nodes[-1]
+        sub_tree['value'] = root
+
+        if len(sub_post_nodes) == 1:
+            # leaf node
+            sub_tree['lchild'] = sub_tree['rchild'] = None
+        else:
+            # internal node
+            # distinguish left and right sub_trees in infix nodes
+            left_in_count = 0
+            for node in sub_in_nodes:
+                if node == root:
+                    break
+                left_in_count += 1
+
+            # left sub_tree
+            if left_in_count:
+                sub_post_left_nodes = sub_post_nodes[:left_in_count]
+                sub_in_left_nodes = sub_in_nodes[:left_in_count]
+                sub_tree['lchild'] = {}
+                stack.append((sub_post_left_nodes, sub_in_left_nodes,
+                              sub_tree['lchild']))
+            else:
+                sub_tree['lchild'] = None
+
+            # right sub_tree
+            right_in_count = len(sub_in_nodes) - left_in_count - 1
+            if right_in_count:
+                sub_post_right_nodes = sub_post_nodes[left_in_count:-1]
+                sub_in_right_nodes = sub_in_nodes[left_in_count + 1:]
+                sub_tree['rchild'] = {}
+                stack.append((sub_post_right_nodes, sub_in_right_nodes,
+                              sub_tree['rchild']))
+            else:
+                sub_tree['rchild'] = None
+
+    return tree
+
+
 def pre_order(tree, output=[]):
     """ value -> left -> right """
     if not tree:
