@@ -172,3 +172,45 @@ def post_order(tree, output=[]):
     post_order(tree['rchild'], output)
     output.append(tree['value'])
     return output
+
+
+def greedy_min_cost_traversal(tree):
+    """
+    on each branch of the tree, always choose the node with smaller value.
+    """
+    # greedy find the path with smaller values in each branch first
+    if not tree:
+        return 0
+
+    greedy_cost = 0
+    greedy_path = []
+    sub_tree = tree
+    while sub_tree:
+        greedy_cost += sub_tree['value']
+        greedy_path.append(sub_tree['value'])
+        if sub_tree['lchild'] and sub_tree['rchild']:
+            # both sub_trees exist
+            if sub_tree['lchild']['value'] < sub_tree['rchild']['value']:
+                sub_tree = sub_tree['lchild']
+            else:
+                sub_tree = sub_tree['rchild']
+        elif not sub_tree['rchild']:
+            # only left sub_tree exists
+            sub_tree = sub_tree['lchild']
+        elif not sub_tree['lchild']:
+            # only right sub_tree exists
+            sub_tree = sub_tree['rchild']
+
+    return greedy_cost, greedy_path
+
+def all_tree_paths(tree, output=[], paths=[]):
+    if tree:
+        output.append(tree['value'])
+        if tree['lchild']:
+            all_tree_paths(tree['lchild'], output, paths)
+        if tree['rchild']:
+            all_tree_paths(tree['rchild'], output, paths)
+        elif not tree['lchild'] and not tree['rchild']:
+            paths.append(output[:])
+        output.pop()
+    return paths

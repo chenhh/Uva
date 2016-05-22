@@ -8,7 +8,8 @@ difficulty: 2
 
 http://luckycat.kshs.kh.edu.tw/homework/q548.htm
 https://uva.onlinejudge.org/external/5/548.pdf
-prune search
+
+binary tree
 """
 
 
@@ -51,7 +52,7 @@ def post_in_order_to_tree(post_nodes, in_nodes):
             right_in_count = len(sub_in_nodes) - left_in_count - 1
             if right_in_count:
                 sub_post_right_nodes = sub_post_nodes[left_in_count:-1]
-                sub_in_right_nodes = sub_in_nodes[left_in_count+1:]
+                sub_in_right_nodes = sub_in_nodes[left_in_count + 1:]
                 sub_tree['rchild'] = {}
                 stack.append((sub_post_right_nodes, sub_in_right_nodes,
                               sub_tree['rchild']))
@@ -60,51 +61,40 @@ def post_in_order_to_tree(post_nodes, in_nodes):
 
     return tree
 
-def min_cost_traversal(tree):
-    """
-    the cost of a path is sum of nodes in the path.
-    return the terminal node with in the min cost path.
-    """
-    # greedy find the path with smaller values in each branch first
-    if not tree:
-        return 0
 
-    greedy_cost = 0
-    greedy_path = []
-    sub_tree = tree
-    while sub_tree:
-        greedy_cost += sub_tree['value']
-        greedy_path.append(sub_tree['value'])
-        if sub_tree['lchild'] and sub_tree['rchild']:
-            # both sub_trees exist
-            if sub_tree['lchild']['value'] < sub_tree['rchild']['value']:
-                sub_tree = sub_tree['lchild']
-            else:
-                sub_tree = sub_tree['rchild']
-        elif not sub_tree['rchild']:
-            # only left sub_tree exists
-            sub_tree = sub_tree['lchild']
-        elif not sub_tree['lchild']:
-            # only right sub_tree exists
-            sub_tree = sub_tree['rchild']
+def all_tree_paths(tree, output=[], paths=[]):
+    if tree:
+        output.append(tree['value'])
+        if tree['lchild']:
+            all_tree_paths(tree['lchild'], output, paths)
+        if tree['rchild']:
+            all_tree_paths(tree['rchild'], output, paths)
+        elif not tree['lchild'] and not tree['rchild']:
+            paths.append(output[:])
+        output.pop()
+    return paths
 
-    return greedy_cost, greedy_path
 
 def main():
-    import pprint
     while 1:
         try:
             in_nodes = list(map(int, input().split()))
             post_nodes = list(map(int, input().split()))
             tree = post_in_order_to_tree(post_nodes, in_nodes)
-            # pprint.pprint(tree)
-            print (min_cost_traversal(tree))
+            paths = all_tree_paths(tree, [], [])
+
+            min_cost, min_path_node = 1e10, None
+            for idx, path in enumerate(paths):
+                cost = sum(path)
+                if cost < min_cost:
+                    min_cost = cost
+                    min_path_node = path[-1]
+                if cost == min_cost and path[-1] < min_path_node:
+                    min_path_node = path[-1]
+            print(min_path_node)
         except (EOFError):
             break
 
+
 if __name__ == '__main__':
     main()
-    # import pprint
-    # tree = post_in_order_to_tree('3125674', '3214576')
-    # pprint.pprint(tree)
-    # print(min_cost_traversal(tree, [], 0))
