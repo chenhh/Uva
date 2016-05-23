@@ -17,10 +17,11 @@ http://luckycat.kshs.kh.edu.tw/homework/q11987.htm
     containing p.
 
 """
-
+import sys
 
 def main():
     """  correct, but TLE """
+
     while 1:
         try:
             n_value, n_cmd = list(map(int, input().split()))
@@ -68,6 +69,7 @@ def main():
 
         except (EOFError):
             break
+
 
 if __name__ == '__main__':
     main()

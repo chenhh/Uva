@@ -1,0 +1,7 @@
+http://stackoverflow.com/questions/1042110/using-scanf-in-c-programs-is-faster-than-using-cin
+http://en.cppreference.com/w/cpp/io/ios_base/sync_with_stdio
+
+std::ios::sync_with_stdio(false);
+
+c++ stringstream issues:
+https://dotblogs.com.tw/v6610688/2013/11/08/cplusplus_stringstream_int_and_string_convert_and_clear
