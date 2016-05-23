@@ -14,8 +14,8 @@ http://luckycat.kshs.kh.edu.tw/homework/q11526.htm
 #include <cmath>
 using namespace std;
 
-long long H(int n)
-{
+long long H(int n) {
+    // for negative number n, the real part of sqrt is 0
     int root = int(sqrt(n)) + 1;
     long long res = 0;
     for(int i=1; i < root; ++i)

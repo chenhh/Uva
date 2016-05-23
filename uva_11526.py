@@ -20,6 +20,8 @@ def orig_H(n):
 
 def H(n):
     """ complexity : O(lg n) """
+    if n <=0:
+        return 0
     root = int(math.sqrt(n)) + 1
     res = sum(n//idx for idx in range(1, root))
     root -= 1
@@ -31,10 +33,7 @@ def main():
     T = int(input())
     for _ in range(T):
         n = int(input())
-        if n<=0:
-            print (0)
-        else:
-            print(H(n))
+        print(H(n))
 
 
 if __name__ == '__main__':
