@@ -21,7 +21,7 @@ def main():
             if not len(data):
                 break
             case += 1
-            print ("Case {}".format(case))
+            print ("Case {}:".format(case))
             
             value =  int(data[0])
             cum_sum = [value,]
@@ -35,8 +35,9 @@ def main():
                 lo, hi = list(map(int, input().split()))
                 # end may exceed the length of data
                 sdx, edx = min(lo, hi), min(max(lo,hi), len(data)-1)
-                if (cum_sum[sdx] == cum_sum[edx] or 
-                    cum_sum[edx] - cum_sum[sdx] == edx-sdx):
+                if ((cum_sum[sdx] == cum_sum[edx] and data[sdx] == '0') or
+                   (cum_sum[edx] - cum_sum[sdx] == edx-sdx and
+                    data[sdx] == '1')):
                     print ("Yes")
                 else:
                     print ("No")
