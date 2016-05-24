@@ -51,7 +51,7 @@ def pre_order_to_binary_search_tree(nodes):
     return tree
 
 
-def pre_in_order_to_tree(pre_nodes, in_nodes):
+def pre_in_order_to_binary_tree(pre_nodes, in_nodes):
     """
     dict to implement a binary tree,
     nodes: list of values
@@ -105,7 +105,7 @@ def pre_in_order_to_tree(pre_nodes, in_nodes):
     return tree
 
 
-def post_in_order_to_tree(post_nodes, in_nodes):
+def post_in_order_to_binary_tree(post_nodes, in_nodes):
     """
     dict to implement a binary tree,
     nodes: list of values
@@ -203,13 +203,18 @@ def greedy_min_cost_traversal(tree):
 
     return greedy_cost, greedy_path
 
-def all_tree_paths(tree, output=[], paths=[]):
+def all_binary_tree_paths(tree, output=[], paths=[]):
+    """
+    traversal all paths in a tree
+    return list of all paths (a path is the nodes from root to leaf)
+    """
+
     if tree:
         output.append(tree['value'])
         if tree['lchild']:
-            all_tree_paths(tree['lchild'], output, paths)
+            all_binary_tree_paths(tree['lchild'], output, paths)
         if tree['rchild']:
-            all_tree_paths(tree['rchild'], output, paths)
+            all_binary_tree_paths(tree['rchild'], output, paths)
         elif not tree['lchild'] and not tree['rchild']:
             paths.append(output[:])
         output.pop()
