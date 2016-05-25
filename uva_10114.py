@@ -39,22 +39,16 @@ def main():
             if not deprecation[idx]:
                 deprecation[idx] = deprecation[idx - 1]
 
-        initial_value = loan_amount + down_payment
-        if deprecation[0]:
-            pv = initial_value * (1 - deprecation[0])
-        if loan_amount < pv:
-            print("0 months")
-        else:
-            each_payment = loan_amount / month
-            ans = 0
-            for cnt in range(1, month + 1):
-                pv = pv * (1 - deprecation[cnt])
-                owed = loan_amount - each_payment * cnt
-                # print (cnt, pv, owed)
-                if owed < pv:
-                    ans = cnt
-                    break
-            print(ans, "month" if ans == 1 else "months")
+        pv = loan_amount + down_payment
+        ans = 0
+        each_payment = loan_amount / month
+        for cnt in range(month + 1):
+            pv = pv * (1 - deprecation[cnt])
+            owed = loan_amount - each_payment * cnt
+            if owed < pv:
+                ans = cnt
+                break
+        print(ans, "month" if ans == 1 else "months")
 
 
 if __name__ == '__main__':
