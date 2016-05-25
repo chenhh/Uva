@@ -23,7 +23,7 @@ def main():
                 giver, total, n_receiver = act[0], int(act[1]), int(act[2])
                 if n_receiver:
                     value = total // n_receiver
-                    amount[giver] = get(giver, 0) + -value * n_receiver
+                    amount[giver] = get(giver, 0) - value * n_receiver
                     for receiver in act[3:]:
                         amount[receiver] = get(receiver, 0) + value
             if case:
