@@ -18,34 +18,41 @@ def simulation(act1, src, act2, tgt, piles, blocks):
     """
     if src == tgt or blocks[src] == blocks[tgt]:
         # src == tgt or src and tgt in the same pile
-        return blocks
+        return piles, blocks
 
-    elif act1 == 'move' and act2 == 'onto':
-        # puts block a onto block b after returning any blocks that are
-        # staked on top of blocks a and b to their initial positions.
-        pass
-    elif act1 == 'move' and act2 == 'over':
-        # puts block a onto the top of the stack containing block b, after
-        # returning any blocks that are staked on top of block a to their
-        # initial positions.
-        pass
-    elif act2 == 'pile' and act2 == 'onto':
-        # moves the pile of blocks consisting of block a, and any blocks
-        # that are stacked above block a, onto block b. All blocks on top of
-        # block b are moved to their initial positions prior to the pile
-        # taking place. The blocks stacked above block a retain their order
-        # when moved.
-        pass
-    elif act2 == 'pile' and act2 == 'over':
-        # puts the pile of blocks  consisting of block a, and any blocks
-        # that are staked above block a, onto the top of the stack containing
-        # block b
-        # update record
-        for block in piles[src]:
-            blocks[block] = tgt
-        # realization
-        piles[tgt].extend(piles[src])
-        piles[src].clear()
+    if act1 == 'move':
+        # pre-action, move the blocks above a to their original piles
+        for num in reversed(piles[blocks[src]]):
+            if num == src:
+                break
+            piles[num].append(piles[blocks[src]].pop())
+            blocks[num] = num
+
+    if act2 == 'onto':
+        # pre-action, move the blocks above b to their original piles
+        for num in reversed(piles[blocks[tgt]]):
+            if num == tgt:
+                break
+            piles[num].append(piles[blocks[tgt]].pop())
+            blocks[num] = num
+
+    if act1 == 'move':
+        # real action, put a on b, for both act2 in 'into' and 'over'
+        piles[blocks[tgt]].append(piles[blocks[src]].pop())
+        blocks[src] = blocks[tgt]
+
+    if act1 == 'pile':
+        # real action, move the blocks above a to b
+        src_loc = piles[blocks[src]].index(src)
+        orig_src = blocks[src]
+        for num in piles[blocks[src]][src_loc:]:
+            piles[blocks[tgt]].append(num)
+            blocks[num] = tgt
+
+        for _ in range(len(piles[orig_src]) - src_loc):
+            piles[orig_src].pop()
+
+    return piles, blocks
 
 
 def main():
@@ -59,11 +66,19 @@ def main():
                 cmd = input().split()
                 if cmd[0] == 'quit':
                     for idx, block in enumerate(piles):
-                        print("{}: {}".format(
-                            idx, " ".join(str(v) for v in block)))
+                        if len(block):
+                            print("{}: {}".format(
+                                idx, " ".join(str(v) for v in block)))
+                        else:
+                            print("{}:".format(idx))
+
                     break
                 act1, src, act2, tgt = cmd
-                blocks = simulation(act1, src, act2, tgt, piles, blocks)
+                piles, blocks = simulation(act1, int(src), act2, int(tgt),
+                                           piles, blocks)
+                # print (cmd)
+                # print (piles)
+                # print (blocks)
 
         except (EOFError):
             break
