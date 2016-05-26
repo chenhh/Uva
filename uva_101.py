@@ -47,7 +47,7 @@ def simulation(act1, src, act2, tgt, piles, blocks):
         orig_src = blocks[src]
         for num in piles[blocks[src]][src_loc:]:
             piles[blocks[tgt]].append(num)
-            blocks[num] = tgt
+            blocks[num] = blocks[tgt]
 
         for _ in range(len(piles[orig_src]) - src_loc):
             piles[orig_src].pop()
@@ -76,10 +76,7 @@ def main():
                 act1, src, act2, tgt = cmd
                 piles, blocks = simulation(act1, int(src), act2, int(tgt),
                                            piles, blocks)
-                # print (cmd)
-                # print (piles)
-                # print (blocks)
-
+               
         except (EOFError):
             break
 
