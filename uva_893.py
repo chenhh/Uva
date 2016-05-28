@@ -29,15 +29,22 @@ def main():
         # computing base days
         pre_year, pre_month = year - 1, month - 1
         days = day + n_ahead
-        days += pre_year * 365 + pre_year // 4 - pre_year // 100 + pre_year // 400
+        days += (pre_year * 365 + pre_year // 4 - pre_year // 100 +
+                 pre_year // 400)
         days += sum(months[mdx] for mdx in range(pre_month))
         days += 1 if is_leap(year) and pre_month >= 2 else 0
 
-        tgt_year, year_size = 1, 365
-        while days > year_size:
-            days -= year_size
+        tgt_year = days // 366
+        tgt_days = (tgt_year * 365 + tgt_year // 4 - tgt_year // 100 +
+                    tgt_year // 400)
+        # find tgt_year base_days < days <= (tgt_year+1) base_days
+        while tgt_days < days:
             tgt_year += 1
-            year_size = 366 if is_leap(tgt_year) else 365
+            tgt_days = (tgt_year * 365 + tgt_year // 4 - tgt_year // 100 +
+                        tgt_year // 400)
+
+        days -= tgt_days
+        days += 366 if is_leap(tgt_year) else 365
 
         cur_months = leap_months if is_leap(tgt_year) else months
         tgt_month = 0
