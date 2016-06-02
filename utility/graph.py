@@ -27,4 +27,3 @@ def dfs_bicolor(graph, start_node):
                     break
                 stack.append(child)
     return bicolor
-es
