@@ -12,6 +12,7 @@ the boat speed u m/s
 
 the combination speed of the direction is x=sqrt(v^2 + u^2)
 
+https://uva.onlinejudge.org/external/107/10773.pdf
 """
 
 import math
