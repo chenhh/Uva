@@ -13,7 +13,7 @@ import sys
 
 
 def main():
-    counts = [1 if len(set(list(str(idx)))) == len(str(idx)) else 0
+    counts = [1 if len(set(str(idx))) == len(str(idx)) else 0
               for idx in range(5001)]
     records = sys.stdin.readlines()
     for line in records:
