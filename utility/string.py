@@ -4,6 +4,7 @@ Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 """
 
+
 def LIS(seqs):
     """
     Robinson-Schensted-Knuth Algorithm
@@ -16,7 +17,7 @@ def LIS(seqs):
     for idx in range(1, n_data):
         if seqs[idx] > tmp_lis[-1]:
             tmp_lis.append(seqs[idx])
-            pos[idx] =len(tmp_lis)
+            pos[idx] = len(tmp_lis)
         else:
             # strictly increasing,
             loc = bisect.bisect_left(tmp_lis, seqs[idx])
@@ -29,7 +30,7 @@ def LIS(seqs):
     kdx = lis_len
     for jdx in reversed(range(n_data)):
         if pos[jdx] == kdx:
-            lis[kdx-1] = seqs[jdx]
+            lis[kdx - 1] = seqs[jdx]
             kdx -= 1
 
     return lis
@@ -58,7 +59,16 @@ def word_token(data):
         words.append(data[sdx:n_char])
 
     return words
-    
+
+
 def palindrome(word):
-    return all(word[idx] == word[len(word)-idx-1]
-               for idx in range(len(word)//2))
+    return all(word[idx] == word[len(word) - idx - 1]
+               for idx in range(len(word) // 2))
+
+
+def all_substrings(word):
+    substrings = [word[sdx:edx]
+                  for sdx in range(len(word))
+                  for edx in range(sdx + 1, len(word) + 1)
+                  ]
+    return substrings
