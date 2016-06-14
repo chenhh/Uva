@@ -3,7 +3,7 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 """
-from functools import reduce
+
 
 def permutation(N, M):
     """
@@ -26,3 +26,9 @@ def pascal_triangle(n_row):
         print(" ".join(map(str, r1)))
         r1, r2 = r2, [1] + [sum(pair) for pair in zip(r2, r2[1:]) ] + [1]
         row += 1
+
+
+def gcd(x, y):
+    while x % y:
+        x, y = y, x % y
+    return y
