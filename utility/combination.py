@@ -18,3 +18,11 @@ def combination(N, M):
     the answer is N!/M!/(N-M)!
     N, M are both positive integer
     """
+    
+def pascal_triangle(n_row):
+    r1, r2 = [1], [1, 1]
+    row = 1
+    while row <= n_row:
+        print(" ".join(map(str, r1)))
+        r1, r2 = r2, [1] + [sum(pair) for pair in zip(r2, r2[1:]) ] + [1]
+        row += 1
