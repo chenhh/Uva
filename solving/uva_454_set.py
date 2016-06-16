@@ -13,9 +13,17 @@ import sys
 
 
 def solve(phases):
-    counts = {phase: "".join(sorted(phase.split())) for phase in phases}
-    for key in sorted(counts.key()):
-        chars1 = counts[key]
+    counts = {phase: "".join(sorted("".join(phase.split())))
+              for phase in phases}
+    # brute force
+    sorted_keys = sorted(counts.keys())
+    len_keys = len(sorted_keys)
+    for idx in range(len_keys):
+        k1 = sorted_keys[idx]
+        for jdx in range(idx + 1, len_keys):
+            k2 = sorted_keys[jdx]
+            if counts[k1] == counts[k2]:
+                print("{} = {}".format(k1, k2))
 
 
 def main():
@@ -31,18 +39,16 @@ def main():
             if phase:
                 append(phase)
             else:
-                if case:
-                    print()
                 solve(phases)
                 case += 1
+                if case != n_case - 1:
+                    print()
                 phases.clear()
 
         except StopIteration:
             if phases:
-                if case:
-                    print()
                 solve(phases)
-                case += 1
+            break
 
 
 if __name__ == '__main__':
