@@ -5,13 +5,34 @@ License: GPL v2
 """
 
 
-def permutation(N, M):
+def permutation(nodes):
     """
-    the answer is N!/M!
-    N, M are both positive integer, and N>=M
-    """
-    #return reduce(lambda x,y: x*y, [v for v in range(N-M+1, M+1)])
+    http://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
 
+    Parameters:
+    ----------------------------------
+    nodes: list or string
+
+    Return:
+    ----------------------------------
+    list of all permutations
+    """
+    n_node = len(nodes)
+    stack = [(nodes, 0), ]
+    ans = []
+    while stack:
+        # print ("stack:", stack)
+        curr, loc = stack.pop()
+        # print (loc, curr)
+        if loc == n_node - 1:
+            ans.append(curr)
+            continue
+        for jdx in range(loc, n_node):
+            curr[jdx], curr[loc] = curr[loc], curr[jdx]
+            # print ("insert:", curr)
+            stack.append([curr[:], loc + 1])
+            curr[jdx], curr[loc] = curr[loc], curr[jdx]
+    return (ans[::-1])
 
 def combination(N, M):
     """
