@@ -29,7 +29,7 @@ def permutation(nodes):
             continue
         for jdx in range(loc, n_node):
             curr[jdx], curr[loc] = curr[loc], curr[jdx]
-            # print ("insert:", curr)
+            # copy on value, not copy on reference
             stack.append([curr[:], loc + 1])
             curr[jdx], curr[loc] = curr[loc], curr[jdx]
     return (ans[::-1])
