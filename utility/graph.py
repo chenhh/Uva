@@ -257,3 +257,50 @@ def queens_with_a_fixed_position(x, y, n_queen=8):
 def test_queens():
     for idx in range(10):
         assert queens(idx) == queens_iterative(idx)
+
+
+def Kruskal_mst(locs, n_node):
+    """
+    uva 10034
+    full connected graph, and the locs are the coordinates the each node.
+    Kruskal's algorithm
+    """
+    import math
+    lsqrt = math.sqrt
+    graph = {}
+    for idx in range(n_node):
+        x1, y1 = locs[idx]
+        for jdx in range(idx + 1, n_node):
+            x2, y2 = locs[jdx]
+            dx, dy = (x1 - x2), (y1 - y2)
+            graph[(idx, jdx)] = lsqrt(dx * dx + dy * dy)
+    graph = sorted(graph.items(), key=lambda x: x[1])
+
+    # store the id in which set
+    sets = list(range(n_node))
+    # store the set contains what ids
+    groups = [[idx] for idx in range(n_node)]
+    n_edge, costs = 0, 0
+    for gdx, ((n1, n2), d) in enumerate(graph):
+        if sets[n1] != sets[n2]:
+            costs += d
+            n_edge += 1
+            # union set, merge small set to large one
+            if len(groups[sets[n1]]) > len(groups[sets[n2]]):
+                groups[sets[n1]].extend(groups[sets[n2]])
+                tmp = sets[n2]
+                for idx in groups[sets[n2]]:
+                    sets[idx] = sets[n1]
+                groups[tmp].clear()
+
+            else:
+                groups[sets[n2]].extend(groups[sets[n1]])
+                tmp = sets[n1]
+                for idx in groups[sets[n1]]:
+                    sets[idx] = sets[n2]
+                groups[tmp].clear()
+
+        if n_edge == n_node - 1:
+            break
+
+    return costs
