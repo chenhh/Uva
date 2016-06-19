@@ -252,3 +252,8 @@ def queens_with_a_fixed_position(x, y, n_queen=8):
                 # the position does not place a new queen
                 cols[cdx], lefts[l_idx], rights[r_idx] = False, False, False
     return ans
+
+
+def test_queens():
+    for idx in range(10):
+        assert queens(idx) == queens_iterative(idx)
