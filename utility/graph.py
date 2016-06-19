@@ -124,6 +124,11 @@ def queens(n_queen=8):
                 ans.append(positions)
             continue
 
+        if rdx < n_row and len(positions) < rdx - 1:
+            # in rdx row, it should has rdx-1 or rdx queens
+            # prune the impossible path
+            continue
+
         if cdx >= n_col:
             # start from the first column of next row
             stack.append((rdx + 1, 0, rows[:], cols[:], left[:], right[:],
