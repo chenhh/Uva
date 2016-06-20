@@ -89,6 +89,31 @@ def coloring(graph, n_node):
     return (max_n_black, black_nodes)
 
 
+def connected_components(graph, n_node):
+    """ uva 572, dfs search """
+    if n_node == 0:
+        return 0
+    stack = [0, ]
+    visited = [False] * n_node
+
+    n_sub = 1
+    while not all(visited):
+        # print ("Stack:", stack)
+        node = stack.pop()
+        if not visited[node]:
+            visited[node] = True
+            for child in graph[node]:
+                if not visited[child]:
+                    stack.append(child)
+        if not stack:
+            for idx, val in enumerate(visited):
+                if not val:
+                    stack.append(idx)
+                    n_sub += 1
+                    break
+    return n_sub
+
+
 def queens(n_queen=8):
     """
     backtracking, searching by row first then by column.
