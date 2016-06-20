@@ -4,7 +4,7 @@ Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 
 status: AC
-difficulty: 1
+difficulty: 2
 
 https://uva.onlinejudge.org/external/5/572.pdf
 ‘*’, representing the absence of oil,
