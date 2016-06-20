@@ -90,7 +90,9 @@ def coloring(graph, n_node):
 
 
 def connected_components(graph, n_node):
-    """ uva 572, dfs search """
+    """ uva 572,352, dfs search,
+     graph is shown in edge list
+     """
     if n_node == 0:
         return 0
     stack = [0, ]
@@ -112,6 +114,27 @@ def connected_components(graph, n_node):
                     n_sub += 1
                     break
     return n_sub
+
+
+def connected_components_dfs(image, rdx, cdx, dim):
+    """
+    uva 352, another way to count connected components.
+    the image is call by reference
+    mark all connected components to zero.
+    """
+    # N, NE, E, SE, S, SW, W, NW
+    directions = [(-1, 0), (-1, 1), (0, 1), (1, 1),
+                  (1, 0), (1, -1), (0, -1), (-1, -1)]
+
+    stack = [(rdx, cdx)]
+    while stack:
+        x, y = stack.pop()
+        if image[x][y] == '1':
+            image[x][y] = '0'
+            for h, v in directions:
+                if 0 <= x + h < dim and 0 <= y + v < dim:
+                    stack.append((x + h, y + v))
+
 
 
 def queens(n_queen=8):
