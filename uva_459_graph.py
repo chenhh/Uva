@@ -2,9 +2,9 @@
 """
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
+
 status: AC
 difficulty: 2
-
 
 https://uva.onlinejudge.org/external/4/459.pdf
 http://luckycat.kshs.kh.edu.tw/homework/q459.htm
