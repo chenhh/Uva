@@ -90,7 +90,7 @@ def coloring(graph, n_node):
 
 
 def connected_components(graph, n_node):
-    """ uva 572,352, dfs search,
+    """ uva 572,352 459, dfs search,
      graph is shown in edge list
      """
     if n_node == 0:
@@ -119,8 +119,8 @@ def connected_components(graph, n_node):
 def connected_components_dfs(image, rdx, cdx, dim):
     """
     uva 352, another way to count connected components.
-    the image is call by reference
-    mark all connected components to zero.
+    the image is call by reference, and mark all connected components to zero.
+    the image is a adjacency matrix.
     """
     # N, NE, E, SE, S, SW, W, NW
     directions = [(-1, 0), (-1, 1), (0, 1), (1, 1),
