@@ -136,6 +136,41 @@ def connected_components_dfs(image, rdx, cdx, dim):
                     stack.append((x + h, y + v))
 
 
+def connected_components_region(region, n_row, n_col):
+    """
+    uva 10336, connected components of different part in the regions
+    """
+    # N, E, S, W
+    directions = ((-1, 0), (0, 1), (1, 0), (0, -1))
+    lang_cnt = {region[0][0]: 1}
+    lang_get = lang_cnt.get
+
+    stack = [(0, 0)]
+    while stack:
+        x, y = stack.pop()
+        if 'a' <= region[x][y] <= 'z':
+            lang = region[x][y]
+            region[x][y] = region[x][y].upper()
+            for h, v in directions:
+                if (0 <= x + h <= n_row - 1 and 0 <= y + v <= n_col - 1 and
+                            region[x + h][y + v] == lang):
+                    stack.append((x + h, y + v))
+
+        # find next region
+        if not stack:
+            for rdx, row in enumerate(region):
+                if stack:
+                    break
+                for cdx, c in enumerate(row):
+                    if 'a' <= c <= 'z':
+                        stack.append((rdx, cdx))
+                        lang_cnt[region[rdx][cdx]] = (
+                            lang_get(region[rdx][cdx], 0) + 1)
+                        break
+
+    return lang_cnt
+
+
 
 def queens(n_queen=8):
     """
