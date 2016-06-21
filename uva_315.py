@@ -31,7 +31,7 @@ def articulation_point(graph, n_node, start=0):
     because there is no alternative path from left sub-trees to right-subtrees.
     """
     # (parent, node)
-    stack = [1, ]
+    stack = [start, ]
     visited = [-1] * n_node
     parents = [-1] * n_node
     lows = [-1] * n_node
@@ -104,6 +104,15 @@ def main():
         articulation_point(graph, n_node)
 if __name__ == '__main__':
     # main()
-    graph = [[1,4,5], [0, 2], [1], [1,4], [0,3], [0,6,7],
-    [5,7], [6,8,9], [7], [7]]
-    print (articulation_point(graph, len(graph)))
+    graph = [
+        [1, 4, 5],
+        [0, 2, 3],
+        [1],
+        [1, 4],
+        [0, 3],
+        [0, 6, 7],
+        [5, 7],
+        [6, 8, 9],
+        [7],
+        [7]]
+    print(articulation_point(graph, len(graph), 1))
