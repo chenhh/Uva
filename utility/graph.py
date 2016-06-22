@@ -390,7 +390,9 @@ def Kruskal_mst(locs, n_node):
 
 
 def articulation_points(graph, n_node, roots=[0, ]):
-    """ graph: edge list
+    """
+    the graph can be disconnected.
+    graph: edge list
     the root having two or more sub-trees must be an articulation point,
     because there is no alternative path from left sub-trees to right-subtrees.
     """
@@ -442,12 +444,6 @@ def articulation_points(graph, n_node, roots=[0, ]):
                     roots.append(idx)
                     com_id += 1
                     break
-    # print ("roots:", roots)
-    # print ("visited:", visited)
-    # print ("parents:", parents)
-    # print ("lows:", lows)
-    # print ("child:", n_child)
-    # print ("components:", components)
 
     articulations = set()
     for rdx, root in enumerate(roots):
@@ -460,4 +456,4 @@ def articulation_points(graph, n_node, roots=[0, ]):
                         lows[ndx] >= visited[pdx]):
                 articulations.add(pdx)
 
-    return (articulations, visited)
+    return articulations
