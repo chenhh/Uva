@@ -71,6 +71,38 @@ def queens(n_queen=8):
     return ans
 
 
+def while1():
+    stack = []
+    x = 0
+    s = [1]
+    while len(s):
+        x += 1
+        if x == 1000000:
+            break
+
+
+def whileTrue():
+    x = 0
+    s = [1]
+    while s:
+        x += 1
+        if x == 1000000:
+            break
+
+
+def forloop():
+    x = 0
+    for i in range(100):
+        x += 1
+
+
+def recursive(x=0, i=0):
+    if i < 100:
+        x += i
+        recursive(x, i + 1)
+    else:
+        return
+
 def main():
     pass
 
@@ -79,5 +111,8 @@ if __name__ == '__main__':
     from time import time
 
     t1 = time()
-    ans = queens(8)
-    print(len(ans), time() - t1)
+    while1()
+    print(time() - t1)
+    t2 = time()
+    whileTrue()
+    print(time() - t2)
