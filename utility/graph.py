@@ -391,7 +391,7 @@ def Kruskal_mst(locs, n_node):
 
 def articulation_points(graph, n_node, roots=[0, ]):
     """
-    the graph can be disconnected.
+    uva 315, the graph may be disconnected.
     graph: edge list
     the root having two or more sub-trees must be an articulation point,
     because there is no alternative path from left sub-trees to right-subtrees.
@@ -412,8 +412,8 @@ def articulation_points(graph, n_node, roots=[0, ]):
             # not visited, dfs tree edge
             visited[node] = step
             lows[node] = step
-            components[node] = com_id
             step += 1
+            components[node] = com_id
             # the node is not root of dfs tree.
             if parents[node] >= 0:
                 n_child[parents[node]] += 1
