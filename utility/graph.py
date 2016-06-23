@@ -3,6 +3,33 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 """
+
+
+def BFS(graph, n_node, start, ttl):
+    """ uva 336, the graph is a dict of list """
+    from collections import deque
+    visited = {k: False for k in graph.keys()}
+    depth = {k: -1 for k in graph.keys()}
+    parents = {k: -1 for k in graph.keys()}
+    # (parent, node)
+    queue = deque([(start, start), ])
+
+    while queue:
+        parent, node = queue.popleft()
+        if not visited[node]:
+            visited[node] = True
+            parents[node] = parent
+            if depth[parent] >= ttl:
+                break
+            depth[node] = depth[parent] + 1
+
+            for child in graph[node]:
+                if not visited[child]:
+                    queue.append((node, child))
+
+    return (sum(1 for _, v in depth.items() if v == -1))
+
+
 def dfs_bicolor(graph, start_node):
     # print (graph)
     stack = [start_node,]
