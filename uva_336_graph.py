@@ -39,6 +39,30 @@ def BFS(graph, n_node, start, ttl):
     return (sum(1 for _, v in depth.items() if v == -1))
 
 
+def bfs2(graph, n_node, start, ttl):
+    """ the graph is a dict of list """
+    visited = {k: False for k in graph.keys()}
+    depth = {k: -1 for k in graph.keys()}
+    parents = {k: -1 for k in graph.keys()}
+    # (parent, node)
+    queue = deque([start, ])
+    visited[start] = True
+    parents[start] = start
+
+    while queue:
+        node = queue.popleft()
+        parent = parents[node]
+        if depth[parent] >= ttl:
+            break
+        depth[node] = depth[parent] + 1
+        for child in graph[node]:
+            if not visited[child]:
+                queue.append(child)
+                parents[child] = node
+                visited[child] = True
+
+    return (sum(1 for _, v in depth.items() if v == -1))
+
 def main():
     recs = iter(sys.stdin.readlines())
     query_num = 0
@@ -82,7 +106,7 @@ def main():
             if start not in node_ids:
                 ans = len(node_ids)
             else:
-                ans = BFS(graph, len(graph.keys()), start, ttl)
+                ans = bfs2(graph, len(graph.keys()), start, ttl)
             print("Case {}: {} nodes not reachable from "
                   "node {} with TTL = {}.".format(query_num, ans, start, ttl))
 
