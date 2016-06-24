@@ -71,9 +71,14 @@ def arbitrage(graph, n_node):
                         wealth[kdx][idx][jdx] = indirect
                         path[kdx][idx][jdx] = sdx
 
-        for idx in range(n_node):
-            if wealth[kdx][idx][idx] > 1.01:
-                return path_traceback(path, kdx, idx)
+                    if wealth[kdx][idx][jdx] > 1.01 and idx == jdx:
+                        return path_traceback(path, kdx, idx)
+
+                        # if we check the results after all exchange in kth loop,
+                        # then results will be the same as given.
+                        # for idx in range(n_node):
+                        #     if wealth[kdx][idx][idx] > 1.01:
+                        #         return path_traceback(path, kdx, idx)
 
     # no arbitrage
     return "no arbitrage sequence exists"
