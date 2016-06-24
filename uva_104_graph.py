@@ -9,7 +9,8 @@ difficulty: 3
 https://uva.onlinejudge.org/external/1/104.pdf
 http://luckycat.kshs.kh.edu.tw/homework/q104.htm
 
-Floyd–Warshall algorithm
+variant Floyd–Warshall algorithm
+time complexity: O(n^4)
 """
 
 import sys
@@ -45,9 +46,9 @@ def arbitrage(graph, n_node):
     # initialize
     # (kdx, idx, jdx), shape: (n_node)*(n_node)* (n_node)
     wealth = [[[1] * n_node for _ in range(n_node)]
-              for _ in range(n_node + 1)]
+              for _ in range(n_node)]
     path = [[[-1] * n_node for _ in range(n_node)]
-            for _ in range(n_node + 1)]
+            for _ in range(n_node)]
     for idx in range(n_node):
         for jdx in range(n_node):
             wealth[0][idx][jdx] = graph[idx][jdx]
@@ -59,27 +60,19 @@ def arbitrage(graph, n_node):
             # tgt currency
             for jdx in range(n_node):
                 # not exchange and it does not need to record the path
-                direct = wealth[kdx][idx][jdx] = wealth[kdx - 1][idx][jdx]
+                wealth[kdx][idx][jdx] = wealth[kdx - 1][idx][jdx]
 
                 # middle currency
                 for sdx in range(n_node):
                     indirect = (wealth[kdx - 1][idx][sdx]
                                 * wealth[0][sdx][jdx])
-                    if direct < indirect:
+                    if wealth[kdx][idx][jdx] < indirect:
                         # there is a exchange earning higher profit
                         wealth[kdx][idx][jdx] = indirect
                         path[kdx][idx][jdx] = sdx
 
         for idx in range(n_node):
             if wealth[kdx][idx][idx] > 1.01:
-                # print("Stop condition: kdx:{}, idx:{}, jdx:{}, sdx:{}".format(
-                #     kdx, idx, jdx, sdx))
-                # print("graph:")
-                # pprint.pprint(graph)
-                # print("profit")
-                # pprint.pprint(wealth)
-                # print("path mtx")
-                # pprint.pprint(path)
                 return path_traceback(path, kdx, idx)
 
     # no arbitrage
