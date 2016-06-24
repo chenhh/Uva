@@ -16,7 +16,7 @@ time complexity: O(n^4)
 import sys
 
 
-def arbitrage(wealth, n_node):
+def arbitrage(graph, n_node):
     """
     graph: adjacency matrix
 
@@ -45,9 +45,13 @@ def arbitrage(wealth, n_node):
     """
     # initialize
     # (kdx, idx, jdx), shape: (n_node)*(n_node)* (n_node)
+    wealth = [[[1] * n_node for _ in range(n_node)]
+              for _ in range(n_node)]
     path = [[[-1] * n_node for _ in range(n_node)]
             for _ in range(n_node)]
-
+    for idx in range(n_node):
+        for jdx in range(n_node):
+            wealth[0][idx][jdx] = graph[idx][jdx]
 
     # num. of exchange
     for kdx in range(1, n_node):
@@ -98,11 +102,10 @@ def main():
     while True:
         try:
             n_node = int(next(recs))
-            graph = [[[1] * n_node for _ in range(n_node)]
-                      for _ in range(n_node)]
+            graph = [[] * n_node for _ in range(n_node)]
             for idx in range(n_node):
                 rates = list(map(float, next(recs).split()))
-                graph[0][idx] = rates[:idx] + [1] + rates[idx:]
+                graph[idx] = rates[:idx] + [1] + rates[idx:]
             ans = arbitrage(graph, n_node)
             print(ans)
 
