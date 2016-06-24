@@ -567,7 +567,16 @@ def arbitrage(graph, n_node):
                         path[kdx][idx][jdx] = sdx
 
                     if wealth[kdx][idx][jdx] > 1.01 and idx == jdx:
-                        return path_traceback(path, kdx, idx)
+                        stack = [(kdx, path[kdx][idx][idx])]
+                        ans = [idx, ]
+                        while stack:
+                            step, prev_node = stack.pop()
+                            if prev_node != -1:
+                                ans.append(prev_node)
+                                stack.append(
+                                    (step - 1, path[step - 1][idx][prev_node]))
+                        ans.append(idx)
+                        return " ".join(str(v + 1) for v in reversed(ans))
 
         # # if we check the results after all exchange in kth loop,
         # # then results will be the same as given.
