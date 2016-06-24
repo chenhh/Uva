@@ -509,3 +509,72 @@ def articulation_points(graph, n_node, roots=[0, ]):
                 articulations.add(pdx)
 
     return articulations
+
+def arbitrage(graph, n_node):
+    """
+    uva 104
+    graph: adjacency matrix
+
+    Floyd-Warshall algorithm:
+        d[k][i][j] = min(d[k-1][i][j], d[k-1][i][k] + d[k-1][k][j])
+        d[k][i][j]: the shortest path from  node i to node j considering
+        node k is the min distance between.
+            - d[k-1][i][j]: the path from node i to node j without
+                            passing node k.
+            - d[k-1][i][k] + d[k-1][k][j]: the path from node i to node k plus
+                                           the path from node k to node j.
+    note: when k-1=-1, d[-1][i][j] is the adjacency matrix of the graph.
+
+    d[k][i][j] = max(d[k-1][i][j], d[k-1][i][s]*graph[s][j])
+    d[k][i][j]: the profit of kth exchange from currency i to currency j is
+        the maximum profit of
+        - d[k-1][i][j]: the profit of (k-1)th exchange from currency i to
+                        currency j.
+        - d[k-1][i][s]*graph[s][j]: the profit of (k-1)th exchange from
+                        currency i to currency s, then from currency s to
+                        currency j.
+    note: d[0][i][j] is the adjacency of the graph.
+
+    path[k][i][j]: the kth node of the path from ith currency to jth
+                    currency.
+    """
+    # initialize
+    # (kdx, idx, jdx), shape: (n_node)*(n_node)* (n_node)
+    wealth = [[[1] * n_node for _ in range(n_node)]
+              for _ in range(n_node)]
+    path = [[[-1] * n_node for _ in range(n_node)]
+            for _ in range(n_node)]
+    for idx in range(n_node):
+        for jdx in range(n_node):
+            wealth[0][idx][jdx] = graph[idx][jdx]
+
+    # num. of exchange
+    for kdx in range(1, n_node):
+        # src currency
+        for idx in range(n_node):
+            # tgt currency
+            for jdx in range(n_node):
+                # not exchange and it does not need to record the path
+                wealth[kdx][idx][jdx] = wealth[kdx - 1][idx][jdx]
+
+                # middle currency
+                for sdx in range(n_node):
+                    indirect = (wealth[kdx - 1][idx][sdx]
+                                * wealth[0][sdx][jdx])
+                    if wealth[kdx][idx][jdx] < indirect:
+                        # there is a exchange earning higher profit
+                        wealth[kdx][idx][jdx] = indirect
+                        path[kdx][idx][jdx] = sdx
+
+                    if wealth[kdx][idx][jdx] > 1.01 and idx == jdx:
+                        return path_traceback(path, kdx, idx)
+
+        # # if we check the results after all exchange in kth loop,
+        # # then results will be the same as given.
+        # for idx in range(n_node):
+        #     if wealth[kdx][idx][idx] > 1.01:
+        #         return path_traceback(path, kdx, idx)
+
+    # no arbitrage
+    return "no arbitrage sequence exists"
+
