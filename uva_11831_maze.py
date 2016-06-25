@@ -12,11 +12,12 @@ https://uva.onlinejudge.org/external/118/11831.pdf
 import sys
 
 states = {
-    'N': (-1, 0),   # north
-    'L': (0, 1),    # east
-    'S': (1, 0),    # south
-    'O': (0, -1),   # west
+    'N': (-1, 0),  # north
+    'L': (0, 1),  # east
+    'S': (1, 0),  # south
+    'O': (0, -1),  # west
 }
+
 
 def main():
     recs = iter(sys.stdin.readlines())
@@ -38,7 +39,7 @@ def main():
                 break
             for jdx in range(n_col):
                 if maze[idx][jdx] in ('N', 'S', 'L', 'O'):
-                    x, y= idx, jdx
+                    x, y = idx, jdx
                     state = states[maze[idx][jdx]]
 
         n_sticker = 0
@@ -46,10 +47,10 @@ def main():
             # print('cmd:', cmd, "position:", x, y, 'state:', state)
             if cmd == 'F':
                 # move forward
-                x1, y1 = x+state[0], y+state[1]
+                x1, y1 = x + state[0], y + state[1]
                 # not a pillar and still in the arena
-                if 0<=x1<n_row and 0<=y1<n_col and maze[x1][y1] != '#' :
-                    x, y= x1, y1
+                if 0 <= x1 < n_row and 0 <= y1 < n_col and maze[x1][y1] != '#':
+                    x, y = x1, y1
                     if maze[x][y] == '*':
                         n_sticker += 1
                         maze[x][y] = '.'
@@ -77,12 +78,12 @@ def main():
                     state = states['S']
                 elif state == states['S']:
                     # south to east
-                    state  = states['L']
+                    state = states['L']
                 elif state == states['L']:
                     # east to north
                     state = states['N']
 
-        print (n_sticker)
+        print(n_sticker)
 
 
 if __name__ == '__main__':
