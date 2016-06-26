@@ -587,3 +587,27 @@ def arbitrage(graph, n_node):
     # no arbitrage
     return "no arbitrage sequence exists"
 
+
+def topological_sort(graph, n_node):
+    """
+     uva 1005
+    graph: edge list
+    """
+
+    orders = []
+    candidate_roots = set(range(n_node))
+
+    while len(orders) < n_node:
+        node_have_in_edges = set()
+        for sdx, edges in enumerate(graph):
+            if sdx not in candidate_roots:
+                # the node is a root, skip
+                continue
+            for e in edges:
+                if e in candidate_roots:
+                    node_have_in_edges.add(e)
+        roots = sorted(list(candidate_roots - node_have_in_edges))
+        orders.extend(roots)
+        candidate_roots = node_have_in_edges
+
+    return " ".join(str(v + 1) for v in orders)
