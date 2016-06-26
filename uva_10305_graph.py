@@ -19,18 +19,21 @@ def topological_sort(graph, n_node):
     orders = []
     candidate_roots = set(range(n_node))
 
-    while len(orders) < n_node:
+    # the worst case requires checking all nodes once
+    for _ in range(n_node):
         node_have_in_edges = set()
-        for sdx, edges in enumerate(graph):
-            if sdx not in candidate_roots:
-                # the node is a root, skip
-                continue
-            for e in edges:
+        for node in candidate_roots:
+            for e in graph[node]:
                 if e in candidate_roots:
                     node_have_in_edges.add(e)
-        roots = sorted(list(candidate_roots - node_have_in_edges))
-        orders.extend(roots)
+        roots = list(candidate_roots - node_have_in_edges)
         candidate_roots = node_have_in_edges
+        orders.extend(roots)
+        if len(orders) >= n_node:
+            break
+
+    if len(orders) < n_node:
+        raise ValueError('there is a cycle in the graph.')
 
     return " ".join(str(v + 1) for v in orders)
 

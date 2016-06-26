@@ -589,7 +589,7 @@ def arbitrage(graph, n_node):
 
 
 def topological_sort(graph, n_node):
-    """ uva 10305 graph: edge list """
+    """ uva 10305, 200, graph: edge list """
 
     orders = []
     candidate_roots = set(range(n_node))
