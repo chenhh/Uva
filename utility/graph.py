@@ -611,3 +611,34 @@ def topological_sort(graph, n_node):
         raise ValueError('there is a cycle in the graph.')
 
     return " ".join(str(v + 1) for v in orders)
+
+
+def Dijkstra_queue(graph, n_node, src, tgt):
+    """
+    uva 10986
+    Dijkstra algorithm implemented using the priority queue
+    """
+    import heapq
+    INF = 2 << 31
+    visited = [False] * n_node
+    # store the distance from src to all other nodes
+    dist = [INF] * n_node
+    dist[src] = 0
+    # (dist, node), the queue will adjust by dist.
+    queue = [(0, src), ]
+    q_push, q_pop = heapq.heappush, heapq.heappop
+
+    while queue:
+        # always the node with the smallest distance
+        n_dist, node = q_pop(queue)
+        visited[node] = True
+
+        for child in graph[node]:
+            dist_node_child = graph[node][child]
+            if (not visited[child] and
+                            dist[node] + dist_node_child < dist[child]):
+                dist[child] = dist[node] + dist_node_child
+                q_push(queue, (dist[child], child))
+
+    # print (dist)
+    return dist[tgt] if dist[tgt] != INF else "unreachable"
