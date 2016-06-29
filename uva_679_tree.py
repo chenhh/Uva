@@ -9,18 +9,19 @@ difficulty: 2
 https://uva.onlinejudge.org/external/6/679.pdf
 http://luckycat.kshs.kh.edu.tw/homework/q679.htm
 
-full binary tree, using list to implement FBT.
-(the root node is located in index 1)
-assuming that the current node in index t, then
-the left child is located in index 2*t, and
-the right child is located in index 2*t+1
 """
 
 import sys
 
 
 def TLE_main():
-    """ direct simulation correct but TLE """
+    """
+    full binary tree, using list to implement FBT.
+    (the root node is located in index 1)
+    assuming that the current node in index t, then
+    the left child is located in index 2*t, and
+    the right child is located in index 2*t+1
+    direct simulation correct but TLE """
     recs = iter(sys.stdin.readlines())
     n_case = int(next(recs))
 
