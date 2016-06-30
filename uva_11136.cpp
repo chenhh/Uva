@@ -27,7 +27,8 @@ int main() {
                 cin >> x;
                 bills.insert(x);
             }
-            multiset<int>::iterator hit = bills.end(), lot = bills.begin(); hit--;
+            multiset<int>::iterator hit = bills.end(), lot = bills.begin();
+            hit--;
             sum += (*hit)-(*lot);
             bills.erase(hit);
             bills.erase(lot);
