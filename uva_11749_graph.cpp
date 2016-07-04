@@ -20,8 +20,8 @@ using namespace std;
 #define N_INF -2147483648
 class Node {
 public:
-   int p, w;
-   Node(int pp, int ww):p(pp), w(ww) {
+   int node, ppa;
+   Node(int _node, int _ppa):node(_node), ppa(_ppa) {
    }
 };
 
@@ -32,7 +32,7 @@ bool visited[max_node];
 int DFS(int n1) {
    int count = 1;
    for (int idx=0, size=graph[n1].size(); idx<size; idx++) {
-        int n2 = graph[n1][idx].p, ppa = graph[n1][idx].w;
+        int n2 = graph[n1][idx].node, ppa = graph[n1][idx].ppa;
       if (visited[n2] || ppa!=max_ppa)
         continue;
       visited[n2] = true;
