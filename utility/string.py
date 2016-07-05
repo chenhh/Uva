@@ -82,3 +82,33 @@ def int_to_str(n, base):
         output.append(symbols[n % base])
         n //= base
     return "".join(reversed(output))
+
+
+def is_square(positive_int):
+    """
+    uva 636
+    Babylonian algorithm
+    https://en.wikipedia.org/wiki/Methods_of_computing_square_roots
+    """
+    x = positive_int // 2
+    seen = set([x])
+    while x * x != positive_int:
+        x = (x + (positive_int // x)) // 2
+        if x in seen:
+            return False
+        seen.add(x)
+    return True
+
+
+def is_square2(positive_int):
+    from math import sqrt, floor
+    x = positive_int
+    return x == int(floor(sqrt(x) + 0.5) ** 2)
+
+
+def int_from_base(val, base):
+    """ val: string """
+    res = int(val[0])
+    for v in val[1:]:
+        res = res * base + int(v)
+    return res
