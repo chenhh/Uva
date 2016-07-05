@@ -72,3 +72,13 @@ def all_substrings(word):
                   for edx in range(sdx + 1, len(word) + 1)
                   ]
     return substrings
+
+
+def int_to_str(n, base):
+    """ uva 389 """
+    symbols = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    output = []
+    while n > 0:
+        output.append(symbols[n % base])
+        n //= base
+    return "".join(reversed(output))
