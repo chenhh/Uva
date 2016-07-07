@@ -112,3 +112,39 @@ def int_from_base(val, base):
     for v in val[1:]:
         res = res * base + int(v)
     return res
+
+
+def infix_to_postfix(infix_expr):
+    """
+    uva 727
+    infix_expr: string or list """
+    prec = {}
+    # priority
+    prec["*"] = 3
+    prec["/"] = 3
+    prec["+"] = 2
+    prec["-"] = 2
+    prec["("] = 1
+    stack = []
+    postfix_expr = []
+
+    for token in infix_expr:
+        if token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789":
+            postfix_expr.append(token)
+        elif token == '(':
+            stack.append(token)
+        elif token == ')':
+            top_token = stack.pop()
+            while top_token != '(':
+                # pop element until match brace
+                postfix_expr.append(top_token)
+                top_token = stack.pop()
+        else:
+            # the token is an operator
+            while stack and prec[stack[-1]] >= prec[token]:
+                postfix_expr.append(stack.pop())
+            stack.append(token)
+
+    while stack:
+        postfix_expr.append(stack.pop())
+    return "".join(postfix_expr)
