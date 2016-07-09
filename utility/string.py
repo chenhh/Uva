@@ -36,6 +36,25 @@ def LIS(seqs):
     return lis
 
 
+def lcs(line1, line2):
+    """
+    line1: list of words, the first word is empty.
+    line2: list of words, the first word is empty.
+    """
+    len1 = len(line1)
+    len2 = len(line2)
+    # n_row: len2, n_col: len1
+    length = [[0] * len2 for _ in range(len1)]
+    for idx in range(1, len1):
+        for jdx in range(1, len2):
+            if line1[idx] == line2[jdx]:
+                length[idx][jdx] = length[idx - 1][jdx - 1] + 1
+            else:
+                length[idx][jdx] = max(length[idx - 1][jdx],
+                                       length[idx][jdx - 1])
+    return length[len1 - 1][len2 - 1]
+
+
 def word_token(data):
     """
     data: string
