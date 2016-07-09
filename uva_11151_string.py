@@ -18,6 +18,7 @@ import sys
 
 
 def longest_palindrome(word, sdx, edx, table):
+    """ uva 11151 """
     if sdx == edx:
         # the empty string is a palindrome
         return 1

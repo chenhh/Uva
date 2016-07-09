@@ -191,3 +191,27 @@ def infix_to_postfix(infix_expr):
     while stack:
         postfix_expr.append(stack.pop())
     return "".join(postfix_expr)
+
+
+def longest_palindrome(word, sdx, edx, table):
+    """ uva 11151 """
+    if sdx == edx:
+        # the empty string is a palindrome
+        return 1
+
+    if sdx == edx - 1:
+        if word[sdx] == word[edx]:
+            return 2
+        else:
+            return 1
+
+    if table[sdx][edx] != -1:
+        # checked
+        return table[sdx][edx]
+
+    if word[sdx] == word[edx]:
+        table[sdx][edx] = 2 + longest_palindrome(word, sdx + 1, edx - 1, table)
+    else:
+        table[sdx][edx] = max(longest_palindrome(word, sdx, edx - 1, table),
+                              longest_palindrome(word, sdx + 1, edx, table))
+    return table[sdx][edx]
