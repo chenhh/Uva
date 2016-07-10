@@ -83,5 +83,20 @@ def square_root(Y):
     return a
 
 
+def factorization(value):
+    from math import sqrt, ceil
+    sieves, primes = linear_sieve(ceil(sqrt(value)))
+
+    K = value
+    factors = []
+    for p in primes:
+        while not K % p:
+            factors.append(p)
+            K //= p
+        if K == 1:
+            break
+    return factors
+
+
 if __name__ == '__main__':
     test_prime(65536)
