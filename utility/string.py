@@ -160,7 +160,8 @@ def int_from_base(val, base):
 def infix_to_postfix(infix_expr):
     """
     uva 727
-    infix_expr: string or list """
+    infix_expr: string or list
+    """
     prec = {}
     # priority
     prec["*"] = 3
