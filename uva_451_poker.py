@@ -8,6 +8,8 @@ difficulty: 1
 
 http://luckycat.kshs.kh.edu.tw/homework/q451.htm
 https://uva.onlinejudge.org/external/4/451.pdf
+
+uva 10315
 """
 
 import sys
