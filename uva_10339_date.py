@@ -26,6 +26,7 @@ def main():
             print("{} {} 12:00".format(k, m))
             continue
 
+        # how many rounds to get the correct time
         period = one_round / diff
         t = int(period * (one_day - k) / 60 + 0.5) % one_day
         h = (t // 60) % 12
