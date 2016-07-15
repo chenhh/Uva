@@ -36,7 +36,6 @@ def main():
     while True:
         cnt = 0
         is_legal = True
-        mtx_shape = None
         try:
             eq = next(recs).strip()
             mul_clear()
@@ -77,6 +76,7 @@ def main():
                     mul_append(mtx_dict[token])
 
             if not is_legal:
+                # illegal in pre-stage
                 print('error')
             else:
                 if len(mul) > 1:
