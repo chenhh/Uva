@@ -22,7 +22,7 @@ EPS = 1e-4
 
 
 def edge2angle(a, b, c):
-    return acos((a * a + b * b - c * c) / (2 * a * b))
+    return acos((b * b + c * c - a * a) / (2 * b * c))
 
 
 def get_edge(alpha, b, c):
@@ -100,8 +100,8 @@ def main():
                 n_unknown_angle = 0
 
             if n_unknown_edge == 0:
-                # all the edges are known, to get the corresponding angle
-                # it may be two angles still unknown.
+                # all the edges are known, and
+                # it may be more than one angle still unknown.
                 if vals[1] <= 0:
                     a, b, c = vals[0], vals[2], vals[4]
                     vals[1] = edge2angle(a, b, c)
@@ -109,11 +109,31 @@ def main():
                     c, a, b = vals[0], vals[2], vals[4]
                     vals[3] = edge2angle(a, b, c)
                 if vals[5] <= 0:
-                    c, a, b = vals[0], vals[2], vals[4]
-                    vals[3] = edge2angle(a, b, c)
+                    b, c, a = vals[0], vals[2], vals[4]
+                    vals[5] = edge2angle(a, b, c)
                 # update
                 n_unknown -= n_unknown_angle
                 n_unknown_angle = 0
+
+            if n_unknown_edge == 1:
+                # only one unknown edge
+                if vals[0] <= 0 and vals[1] > 0:
+                    alpha, b, c = vals[1], vals[2], vals[4]
+                    vals[0] = get_edge(alpha, b, c)
+                    n_unknown_edge = 0
+                    n_unknown -= 1
+
+                elif vals[2] <= 0 and vals[3] > 0:
+                    alpha, b, c = vals[3], vals[0], vals[4]
+                    vals[2] = get_edge(alpha, b, c)
+                    n_unknown_edge = 0
+                    n_unknown -= 1
+
+                elif vals[4] <= 0 and vals[5] > 0:
+                    alpha, b, c = vals[5], vals[0], vals[2]
+                    vals[4] = get_edge(alpha, b, c)
+                    n_unknown_edge = 0
+                    n_unknown -= 1
 
             # there are 2 unknown angles and 1 or 2 unknown edges.
             for idx in range(0, 6, 2):
@@ -148,25 +168,7 @@ def main():
                             n_unknown -= 1
                             n_unknown_angle -= 1
 
-            if n_unknown_edge == 1:
-                # only one unknown edge
-                if vals[0] <= 0 and vals[1] > 0:
-                    alpha, b, c = vals[1], vals[2], vals[4]
-                    vals[0] = get_edge(alpha, b, c)
-                    n_unknown_edge = 0
-                    n_unknown -= 1
 
-                elif vals[1] <= 0 and vals[2] > 0:
-                    alpha, b, c = vals[2], vals[0], vals[4]
-                    vals[1] = get_edge(alpha, b, c)
-                    n_unknown_edge = 0
-                    n_unknown -= 1
-
-                elif vals[3] <= 0 and vals[4] > 0:
-                    alpha, b, c = vals[4], vals[0], vals[2]
-                    vals[3] = get_edge(alpha, b, c)
-                    n_unknown_edge = 0
-                    n_unknown -= 1
         # end of recover
 
         if is_triangle(vals):
