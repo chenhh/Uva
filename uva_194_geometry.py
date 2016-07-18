@@ -601,7 +601,7 @@ def main():
                     print("Invalid input.")
                 else:
                     values[1] = pi - beta - gamma
-                    values[2] = a / sin(alpha) * sin(beta)
+                    values[2] = c / sin(gamma) * sin(beta)
                     # post check
                     print(post_check(values))
 
