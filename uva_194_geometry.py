@@ -317,40 +317,131 @@ def main():
                 print(post_check(values))
 
 
-
-
-
-
-        elif tri_type in ('010110', '100101', '011001'):
-            # ASA, (alpha, beta, c), (a ,beta, gamma), (alpha, b, gamma)
-            if alpha + beta > pi or beta + gamma > pi or alpha + gamma > pi:
+        elif tri_type == '010110':
+            # ASA, (alpha, beta, c)
+            if alpha + beta > pi:
                 print("Invalid input.")
             else:
-                if gamma <= 0:
-                    values[5] = pi - alpha - beta
-                    ratio = c / sin(values[5])
-                    values[0] = ratio * sin(alpha)
-                    values[2] = ratio * sin(beta)
-                elif alpha <= 0:
-                    values[1] = pi - beta - gamma
-                    ratio = a / sin(values[1])
-                    values[2] = ratio * sin(beta)
-                    values[4] = ratio * sin(gamma)
-                elif beta <= 0:
-                    values[3] = pi - alpha - gamma
-                    ratio = b / sin(values[3])
-                    values[0] = ratio * sin(alpha)
-                    values[4] = ratio * sin(gamma)
+                values[5] = pi - alpha - beta
+                ratio = c / sin(values[5])
+                values[0] = ratio * sin(alpha)
+                values[2] = ratio * sin(beta)
 
                 # post check
                 print(post_check(values))
 
-        elif tri_type in ('110100', '001101', '010011',
-                          '110001', '011100', '000111'):
-            # AAS
-            # (a, alpha, beta), (b, beta, gamma), (alpha, c, gamma)
-            # (a, alpha, gamma), (alpha, b, beta), (beta c, gamma)
-            pass
+        elif tri_type == '100101':
+            # ASA (a ,beta, gamma)
+            if beta + gamma > pi:
+                print("Invalid input.")
+            else:
+                values[1] = pi - beta - gamma
+                ratio = a / sin(values[1])
+                values[2] = ratio * sin(beta)
+                values[4] = ratio * sin(gamma)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '011001':
+            # ASA, (alpha, b, gamma)
+            if alpha + gamma > pi:
+                print("Invalid input.")
+            else:
+                values[3] = pi - alpha - gamma
+                ratio = b / sin(values[3])
+                values[0] = ratio * sin(alpha)
+                values[4] = ratio * sin(gamma)
+
+            # post check
+            print(post_check(values))
+
+        elif tri_type == '110100':
+            # AAS  (a, alpha, beta)
+            if alpha + beta > pi:
+                print("Invalid input.")
+            else:
+                values[5] = pi - alpha - beta
+                gamma = values[5]
+                ratio = a / sin(alpha)
+                values[2] = ratio * sin(beta)
+                values[4] = ratio * sin(gamma)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '001101':
+            # AAS (b, beta, gamma)
+            if gamma + beta > pi:
+                print("Invalid input.")
+            else:
+                values[1] = pi - gamma - beta
+                alpha = values[1]
+                ratio = b / sin(beta)
+                values[0] = ratio * sin(alpha)
+                values[4] = ratio * sin(gamma)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '010011':
+            # AAS (alpha, c, gamma)
+            if gamma + alpha > pi:
+                print("Invalid input.")
+            else:
+                values[3] = pi - gamma - alpha
+                beta = values[3]
+                ratio = c / sin(gamma)
+                values[0] = ratio * sin(alpha)
+                values[2] = ratio * sin(beta)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '110001':
+            # AAS (a, alpha, gamma)
+            if gamma + alpha > pi:
+                print("Invalid input.")
+            else:
+                values[3] = pi - gamma - alpha
+                beta = values[3]
+                ratio = a / sin(alpha)
+                values[2] = ratio * sin(beta)
+                values[4] = ratio * sin(gamma)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '011100':
+            # AAS (alpha, b, beta)
+            if alpha + beta > pi:
+                print("Invalid input.")
+            else:
+                values[5] = pi - alpha - beta
+                gamma = values[5]
+                ratio = b / sin(beta)
+                values[0] = ratio * sin(alpha)
+                values[4] = ratio * sin(gamma)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '000111':
+            # AAS  (beta c, gamma)
+            if gamma + beta > pi:
+                print("Invalid input.")
+            else:
+                values[1] = pi - gamma - beta
+                alpha = values[1]
+                ratio = c / sin(gamma)
+                values[0] = ratio * sin(alpha)
+                values[2] = ratio * sin(beta)
+
+                # post check
+                print(post_check(values))
+
+
+
 
 
         elif tri_type in ('111010', '101110', '101011'):
