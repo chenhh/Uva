@@ -244,24 +244,81 @@ def main():
                 # post check
                 print(post_check(values))
 
-        elif tri_type in ('111000', '001110', '100011',
-                          '110010', '101100', '001011'):
-            # SSA
-            # (a,alpha, b), (b,beta, c), (a,c, gamma)
-            # (a,alpha, c), (a,b, beta), (b,c, gamma)
-            if alpha > pi or beta > pi or gamma > pi:
+        elif tri_type == '110010':
+            # SSA (a,alpha, c)
+            if alpha > pi:
                 # law of angle
                 print("Invalid input.")
-            elif ((alpha > pi / 2 and a < b) or
-                      (beta > pi / 2 and b < c) or
-                      (gamma > pi / 2 and c < b)):
+            elif alpha > pi / 2 and a < c:
                 # law of sine, the largest angle has the longest edge
                 print("Invalid input.")
-            elif ((alpha < pi / 2 and a < b * sin(alpha) or
-                       (beta < pi / 2 and b < c * sin(beta)) or
-                       (gamma < pi / 2 and c < a * sin(gamma)))):
+            elif alpha < pi / 2 and a < c * sin(alpha):
                 # law of sine
                 print("Invalid input.")
+            elif alpha < pi / 2 and a > c * sin(alpha) and a < c:
+                # law of sine
+                print("More than one solution.")
+            else:
+                values[5] = pi - asin(c * sin(alpha) / a)
+                gamma = values[5]
+                values[3] = pi - alpha - gamma
+                beta = values[3]
+                values[2] = a / sin(alpha) * sin(beta)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '101100':
+            # SSA (a, b, beta)
+            if beta > pi:
+                # law of angle
+                print("Invalid input.")
+            elif beta > pi / 2 and b < a:
+                # law of sine, the largest angle has the longest edge
+                print("Invalid input.")
+            elif beta < pi / 2 and b < a * sin(beta):
+                # law of sine
+                print("Invalid input.")
+            elif beta < pi / 2 and b > a * sin(beta) and b < a:
+                # law of sine
+                print("More than one solution.")
+            else:
+                values[1] = pi - asin(a * sin(beta) / b)
+                alpha = values[1]
+                values[5] = pi - alpha - beta
+                gamma = values[5]
+                values[4] = b / sin(beta) * sin(gamma)
+
+                # post check
+                print(post_check(values))
+
+        elif tri_type == '001011':
+            # SSA (b, c, gamma)
+            if gamma > pi:
+                # law of angle
+                print("Invalid input.")
+            elif gamma > pi / 2 and c < b:
+                # law of sine, the largest angle has the longest edge
+                print("Invalid input.")
+            elif gamma < pi / 2 and c < b * sin(gamma):
+                # law of sine
+                print("Invalid input.")
+            elif gamma < pi / 2 and c > b * sin(gamma) and c < b:
+                # law of sine
+                print("More than one solution.")
+            else:
+                values[3] = pi - asin(b * sin(gamma) / c)
+                beta = values[3]
+                values[1] = pi - gamma - beta
+                alpha = values[1]
+                values[0] = c / sin(gamma) * sin(alpha)
+
+                # post check
+                print(post_check(values))
+
+
+
+
 
 
         elif tri_type in ('010110', '100101', '011001'):
