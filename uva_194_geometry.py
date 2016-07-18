@@ -43,21 +43,46 @@ def is_satisfy_triangle_inequality(a, b, c):
         return False
 
 
-def is_triangle(values):
+def is_triangle(values, debug=True):
     a, alpha, b, beta, c, gamma = values
     if a <= 0 or b <= 0 or c <= 0 or alpha <= 0 or beta <= 0 or gamma <= 0:
+        if debug:
+            print("some negative values.")
         return False
 
     if alpha + beta + gamma - pi > EPS:
+        if debug:
+            print("the sum of angles not equal to pi.",
+                  sum(alpha + beta + gamma))
         return False
 
     if a + b <= c or a + c <= b or b + c <= a:
         # triangle inequality
+        if debug:
+            print("not satisfying trinagle inequality.")
         return False
 
-    if (a * sin(beta) - b * sin(alpha) > EPS or
-                        a * sin(gamma) - c * sin(alpha) > EPS or
-                        b * sin(gamma) - c * sin(beta) > EPS):
+    a2 = a * a
+    b2 = b * b
+    c2 = c * c
+    ab = a * b
+    ac = a * c
+    bc = b * c
+    sin_alpha = sin(alpha)
+    sin_beta = sin(beta)
+    sin_gamma = sin(gamma)
+    if (a * sin_beta - b * sin_alpha > EPS or
+                        a * sin_gamma - c * sin_alpha > EPS or
+                        b * sin_gamma - c * sin_beta > EPS):
+        if debug:
+            print("not satisfying law of sine.")
+        return False
+
+    if (a2 - b2 - b2 + 2 * bc * cos(alpha) > EPS or b2 - a2 - c2 + 2 * ac * cos(
+            beta) > EPS or
+                            c2 - a2 - b2 + 2 * ab * cos(gamma) > EPS):
+        if debug:
+            print("not satisfying law of cosine.")
         return False
 
     return True
@@ -65,7 +90,7 @@ def is_triangle(values):
 
 def post_check(values):
     if is_triangle(values):
-        return " ".join(":.6f".format(v for v in values))
+        return " ".join("{:.6f}".format(v) for v in values)
     else:
         return "Invalid input."
 
@@ -106,7 +131,7 @@ def main():
             print("Invalid input.")
             continue
 
-        tri_type = "".join(data_type)
+        tri_type = "".join(map(str, data_type))
 
         if tri_type == '111111':
             # all edges and angles are known
@@ -441,9 +466,6 @@ def main():
                 print(post_check(values))
 
 
-
-
-
         elif tri_type in ('111010', '101110', '101011'):
             # SSS, three edges and one angle are known, no multiple solution.
             if not is_satisfy_triangle_inequality(a, b, c):
@@ -464,18 +486,124 @@ def main():
                 print(post_check(values))
 
         elif tri_type in ('010111', '110101', '011101'):
-            # ASA
-            pass
+            # ASA (alpha, beta, c, gamma), (a, alpha, beta, gamma)
+            # (alpha, b, beta, gamma)
+            if not is_satisfy_angle_rule(alpha, beta, gamma):
+                print("Invalid input.")
+            else:
+                if c > 0:
+                    ratio = c / sin(gamma)
+                    values[0] = ratio * sin(alpha)
+                    values[2] = ratio * sin(beta)
+                elif a > 0:
+                    ratio = a / sin(alpha)
+                    values[2] = ratio * sin(beta)
+                    values[4] = ratio * sin(gamma)
+                elif b > 0:
+                    ratio = b / sin(beta)
+                    values[0] = ratio * sin(alpha)
+                    values[4] = ratio * sin(gamma)
+
+                # post check
+                print(post_check(values))
 
         elif tri_type in ('111100', '001111', '110011'):
-            # AAS
-            pass
+            # AAS (a, alpha,b, beta), (b,beta, c gamma), (a,alpha, c, gamma)
+            if gamma < 0:
+                if alpha + beta > pi:
+                    print("Invalid input.")
+                else:
+                    values[5] = pi - alpha - beta
+                    gamma = values[5]
+                    values[4] = a / sin(alpha) * sin(gamma)
+
+                    # post check
+                    print(post_check(values))
+
+            elif alpha < 0:
+                if beta + gamma > pi:
+                    print("Invalid input.")
+                else:
+                    values[1] = pi - beta - gamma
+                    alpha = values[1]
+                    values[0] = b / sin(beta) * sin(alpha)
+                    # post check
+                    print(post_check(values))
+            elif beta < 0:
+                if alpha + gamma > pi:
+                    print("Invalid input.")
+                else:
+                    values[3] = pi - alpha - gamma
+                    beta = values[3]
+                    values[2] = a / sin(alpha) * sin(beta)
+
+                    # post check
+                    print(post_check(values))
+
+
         elif tri_type in ('110110', '101101', '011011'):
-            # ASA
-            pass
+            # ASA (a, alpha, beta, c), (a, b, beta, gamma), (alpha, b, c, gamma)
+            if gamma < 0:
+                if alpha + beta > pi:
+                    print("Invalid input.")
+                else:
+                    values[5] = pi - alpha - beta
+                    values[2] = a / sin(alpha) * sin(beta)
+
+                    # post check
+                    print(post_check(values))
+
+            elif alpha < 0:
+                if beta + gamma > pi:
+                    print("Invalid input.")
+                else:
+                    values[1] = pi - beta - gamma
+                    alpha = values[1]
+                    values[4] = b / sin(beta) * sin(gamma)
+                    # post check
+                    print(post_check(values))
+
+            elif beta < 0:
+                if alpha + gamma > pi:
+                    print("Invalid input.")
+                else:
+                    values[3] = pi - alpha - gamma
+                    beta = values[3]
+                    values[0] = b / sin(beta) * sin(alpha)
+
+                    # post check
+                    print(post_check(values))
+
+
         elif tri_type in ('011110', '100111', '111001'):
-            # ASA
-            pass
+            # ASA (alpha, b, beta ,c), (a, beta, c, gamma), (a, alpha, b, gamma)
+            if gamma < 0:
+                if alpha + beta > pi:
+                    print("Invalid input.")
+                else:
+                    values[5] = pi - alpha - beta
+                    values[0] = b / sin(beta) * sin(alpha)
+
+                    # post check
+                    print(post_check(values))
+
+            elif alpha < 0:
+                if beta + gamma > pi:
+                    print("Invalid input.")
+                else:
+                    values[1] = pi - beta - gamma
+                    values[2] = a / sin(alpha) * sin(beta)
+                    # post check
+                    print(post_check(values))
+
+            elif beta < 0:
+                if alpha + gamma > pi:
+                    print("Invalid input.")
+                else:
+                    values[3] = pi - alpha - gamma
+                    values[4] = a / sin(alpha) * sin(gamma)
+                    # post check
+                    print(post_check(values))
 
         elif tri_type in ('111110', '101111', '111011'):
             # SSS, three edges and two angles are known
@@ -494,7 +622,18 @@ def main():
 
         elif tri_type in ('011111', '110111', '111101'):
             # ASA
-            pass
+            if not is_satisfy_angle_rule(alpha, beta, gamma):
+                print("Invalid input.")
+            else:
+                if a < 0:
+                    values[0] = b / sin(beta) * sin(alpha)
+                elif b < 0:
+                    values[2] = a / sin(alpha) * sin(beta)
+                elif c < 0:
+                    values[4] = a / sin(alpha) * sin(gamma)
+
+                # post check
+                print(post_check(values))
 
 
 if __name__ == '__main__':
