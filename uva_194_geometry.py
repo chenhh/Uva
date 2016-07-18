@@ -115,6 +115,9 @@ def law_of_cosine_to_edge(alpha, b, c):
     return sqrt(b * b + c * c - 2 * b * c * cos(alpha))
 
 
+def invalid():
+    return "Invalid input."
+
 def main():
     recs = iter(sys.stdin.readlines())
     n_case = int(next(recs))
@@ -134,7 +137,7 @@ def main():
 
         if n_known <= 2:
             # all the edges or all the angles are unknown.
-            print("Invalid input.")
+            print(invalid())
             continue
 
         tri_type = "".join(map(str, data_type))
@@ -145,12 +148,12 @@ def main():
 
         elif tri_type == '010101':
             # AAA, no finite solutions.
-            print("Invalid input.")
+            print(invalid())
 
         elif tri_type == '101010':
             # SSS, only three edges are known, no multiple solution.
             if not is_satisfy_triangle_inequality(a, b, c):
-                print("Invalid input.")
+                print(invalid())
             else:
                 # recover angles
                 values[1] = law_of_cosine_to_angle(a, b, c)
@@ -164,7 +167,7 @@ def main():
             # SAS (a,b,gamma)
             if gamma > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[4] = law_of_cosine_to_edge(gamma, a, b)
                 c = values[4]
@@ -178,7 +181,7 @@ def main():
             # SAS (alpha, b, c)
             if alpha > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[0] = law_of_cosine_to_edge(alpha, b, c)
                 a = values[0]
@@ -192,7 +195,7 @@ def main():
             # SAS (a, beta, c)
             if beta > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             else:
 
                 values[2] = law_of_cosine_to_edge(beta, a, c)
@@ -207,13 +210,13 @@ def main():
             # SSA (a, alpha, b)
             if alpha > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             elif alpha > pi / 2 and a < b:
                 # law of sine, the largest angle has the longest edge
-                print("Invalid input.")
+                print(invalid())
             elif alpha < pi / 2 and a < b * sin(alpha):
                 # law of sine
-                print("Invalid input.")
+                print(invalid())
             elif alpha < pi / 2 and a > b * sin(alpha) and a < b:
                 # law of sine
                 print("More than one solution.")
@@ -231,13 +234,13 @@ def main():
             # SSA (b, beta, c)
             if beta > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             elif beta > pi / 2 and b < c:
                 # law of sine, the largest angle has the longest edge
-                print("Invalid input.")
+                print(invalid())
             elif beta < pi / 2 and b < c * sin(beta):
                 # law of sine
-                print("Invalid input.")
+                print(invalid())
             elif beta < pi / 2 and b > c * sin(beta) and b < c:
                 # law of sine
                 print("More than one solution.")
@@ -255,13 +258,13 @@ def main():
             # SSA (a, c, gamma)
             if gamma > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             elif gamma > pi / 2 and c < a:
                 # law of sine, the largest angle has the longest edge
-                print("Invalid input.")
+                print(invalid())
             elif gamma < pi / 2 and c < a * sin(gamma):
                 # law of sine
-                print("Invalid input.")
+                print(invalid())
             elif gamma < pi / 2 and c > a * sin(gamma) and c < a:
                 # law of sine
                 print("More than one solution.")
@@ -279,13 +282,13 @@ def main():
             # SSA (a,alpha, c)
             if alpha > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             elif alpha > pi / 2 and a < c:
                 # law of sine, the largest angle has the longest edge
-                print("Invalid input.")
+                print(invalid())
             elif alpha < pi / 2 and a < c * sin(alpha):
                 # law of sine
-                print("Invalid input.")
+                print(invalid())
             elif alpha < pi / 2 and a > c * sin(alpha) and a < c:
                 # law of sine
                 print("More than one solution.")
@@ -303,13 +306,13 @@ def main():
             # SSA (a, b, beta)
             if beta > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             elif beta > pi / 2 and b < a:
                 # law of sine, the largest angle has the longest edge
-                print("Invalid input.")
+                print(invalid())
             elif beta < pi / 2 and b < a * sin(beta):
                 # law of sine
-                print("Invalid input.")
+                print(invalid())
             elif beta < pi / 2 and b > a * sin(beta) and b < a:
                 # law of sine
                 print("More than one solution.")
@@ -327,13 +330,13 @@ def main():
             # SSA (b, c, gamma)
             if gamma > pi:
                 # law of angle
-                print("Invalid input.")
+                print(invalid())
             elif gamma > pi / 2 and c < b:
                 # law of sine, the largest angle has the longest edge
-                print("Invalid input.")
+                print(invalid())
             elif gamma < pi / 2 and c < b * sin(gamma):
                 # law of sine
-                print("Invalid input.")
+                print(invalid())
             elif gamma < pi / 2 and c > b * sin(gamma) and c < b:
                 # law of sine
                 print("More than one solution.")
@@ -347,11 +350,10 @@ def main():
                 # post check
                 print(post_check(values))
 
-
         elif tri_type == '010110':
             # ASA, (alpha, beta, c)
             if alpha + beta > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[5] = pi - alpha - beta
                 ratio = c / sin(values[5])
@@ -364,7 +366,7 @@ def main():
         elif tri_type == '100101':
             # ASA (a ,beta, gamma)
             if beta + gamma > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[1] = pi - beta - gamma
                 ratio = a / sin(values[1])
@@ -377,7 +379,7 @@ def main():
         elif tri_type == '011001':
             # ASA, (alpha, b, gamma)
             if alpha + gamma > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[3] = pi - alpha - gamma
                 ratio = b / sin(values[3])
@@ -390,7 +392,7 @@ def main():
         elif tri_type == '110100':
             # AAS  (a, alpha, beta)
             if alpha + beta > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[5] = pi - alpha - beta
                 gamma = values[5]
@@ -404,7 +406,7 @@ def main():
         elif tri_type == '001101':
             # AAS (b, beta, gamma)
             if gamma + beta > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[1] = pi - gamma - beta
                 alpha = values[1]
@@ -418,7 +420,7 @@ def main():
         elif tri_type == '010011':
             # AAS (alpha, c, gamma)
             if gamma + alpha > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[3] = pi - gamma - alpha
                 beta = values[3]
@@ -432,7 +434,7 @@ def main():
         elif tri_type == '110001':
             # AAS (a, alpha, gamma)
             if gamma + alpha > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[3] = pi - gamma - alpha
                 beta = values[3]
@@ -446,7 +448,7 @@ def main():
         elif tri_type == '011100':
             # AAS (alpha, b, beta)
             if alpha + beta > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[5] = pi - alpha - beta
                 gamma = values[5]
@@ -460,7 +462,7 @@ def main():
         elif tri_type == '000111':
             # AAS  (beta c, gamma)
             if gamma + beta > pi:
-                print("Invalid input.")
+                print(invalid())
             else:
                 values[1] = pi - gamma - beta
                 alpha = values[1]
@@ -475,7 +477,7 @@ def main():
         elif tri_type in ('111010', '101110', '101011'):
             # SSS, three edges and one angle are known, no multiple solution.
             if not is_satisfy_triangle_inequality(a, b, c):
-                print("Invalid input.")
+                print(invalid())
             else:
                 # recover
                 if alpha > 0:
@@ -495,7 +497,7 @@ def main():
             # ASA (alpha, beta, c, gamma), (a, alpha, beta, gamma)
             # (alpha, b, beta, gamma)
             if not is_satisfy_angle_rule(alpha, beta, gamma):
-                print("Invalid input.")
+                print(invalid())
             else:
                 if c > 0:
                     ratio = c / sin(gamma)
@@ -517,7 +519,7 @@ def main():
             # AAS (a, alpha,b, beta), (b,beta, c gamma), (a,alpha, c, gamma)
             if gamma < 0:
                 if alpha + beta > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[5] = pi - alpha - beta
                     gamma = values[5]
@@ -528,7 +530,7 @@ def main():
 
             elif alpha < 0:
                 if beta + gamma > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[1] = pi - beta - gamma
                     alpha = values[1]
@@ -539,7 +541,7 @@ def main():
 
             elif beta < 0:
                 if alpha + gamma > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[3] = pi - alpha - gamma
                     beta = values[3]
@@ -553,7 +555,7 @@ def main():
             # ASA (a, alpha, beta, c), (a, b, beta, gamma), (alpha, b, c, gamma)
             if gamma < 0:
                 if alpha + beta > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[5] = pi - alpha - beta
                     values[2] = a / sin(alpha) * sin(beta)
@@ -563,10 +565,9 @@ def main():
 
             elif alpha < 0:
                 if beta + gamma > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[1] = pi - beta - gamma
-                    alpha = values[1]
                     values[4] = b / sin(beta) * sin(gamma)
 
                     # post check
@@ -574,11 +575,10 @@ def main():
 
             elif beta < 0:
                 if alpha + gamma > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[3] = pi - alpha - gamma
-                    beta = values[3]
-                    values[0] = b / sin(beta) * sin(alpha)
+                    values[0] = c / sin(gamma) * sin(alpha)
 
                     # post check
                     print(post_check(values))
@@ -588,7 +588,7 @@ def main():
             # ASA (alpha, b, beta ,c), (a, beta, c, gamma), (a, alpha, b, gamma)
             if gamma < 0:
                 if alpha + beta > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[5] = pi - alpha - beta
                     values[0] = b / sin(beta) * sin(alpha)
@@ -598,7 +598,7 @@ def main():
 
             elif alpha < 0:
                 if beta + gamma > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[1] = pi - beta - gamma
                     values[2] = c / sin(gamma) * sin(beta)
@@ -607,7 +607,7 @@ def main():
 
             elif beta < 0:
                 if alpha + gamma > pi:
-                    print("Invalid input.")
+                    print(invalid())
                 else:
                     values[3] = pi - alpha - gamma
                     values[4] = a / sin(alpha) * sin(gamma)
@@ -617,7 +617,7 @@ def main():
         elif tri_type in ('111110', '101111', '111011'):
             # SSS, three edges and two angles are known
             if not is_satisfy_triangle_inequality(a, b, c):
-                print("Invalid input.")
+                print(invalid())
             else:
                 if alpha < 0:
                     values[1] = law_of_cosine_to_angle(a, b, c)
@@ -632,7 +632,7 @@ def main():
         elif tri_type in ('011111', '110111', '111101'):
             # ASA
             if not is_satisfy_angle_rule(alpha, beta, gamma):
-                print("Invalid input.")
+                print(invalid())
             else:
                 if a < 0:
                     values[0] = b / sin(beta) * sin(alpha)
