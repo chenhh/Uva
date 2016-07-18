@@ -9,13 +9,13 @@ difficulty: 4
 https://uva.onlinejudge.org/external/1/194.pdf
 http://www.cnblogs.com/devymex/p/3277404.html
 
-if there are at least 3 values, then it can be solved.
+the EPS should be 1e-5 (1e-6 will get WA)
 """
 
 import sys
 from math import (pi, cos, acos, sin, asin, sqrt)
 
-EPS = 1e-6
+EPS = 1e-5
 
 def is_all_positive(values):
     for val in values:
@@ -125,7 +125,7 @@ def main():
         n_known = 6
 
         for idx, val in enumerate(values):
-            if val <= 0:
+            if (val + 1.0) < EPS:
                 data_type[idx] = 0
                 n_known -= 1
 
