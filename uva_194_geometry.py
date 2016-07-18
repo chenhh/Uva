@@ -17,7 +17,6 @@ from math import (pi, cos, acos, sin, asin, sqrt)
 
 EPS = 1e-6
 
-
 def is_all_positive(values):
     for val in values:
         if val <= 0:
@@ -38,16 +37,16 @@ def is_satisfy_angle_rule(alpha, beta, gamma):
 
 
 def is_satisfy_triangle_inequality(a, b, c):
-    if (a + b <= c or a + c <= b or b + c <= a):
-        # triangle inequality
-        return False
+    # triangle inequality
+    return False if (a + b <= c or a + c <= b or b + c <= a) else True
 
 
-def is_triangle(values, debug=True):
+def is_triangle(values, debug=False):
     a, alpha, b, beta, c, gamma = values
     if a <= 0 or b <= 0 or c <= 0 or alpha <= 0 or beta <= 0 or gamma <= 0:
         if debug:
             print("some negative values.")
+            print(values)
         return False
 
     if alpha + beta + gamma - pi > EPS:
@@ -59,7 +58,7 @@ def is_triangle(values, debug=True):
     if a + b <= c or a + c <= b or b + c <= a:
         # triangle inequality
         if debug:
-            print("not satisfying trinagle inequality.")
+            print("not satisfying triangle inequality.")
         return False
 
     a2 = a * a
@@ -71,18 +70,25 @@ def is_triangle(values, debug=True):
     sin_alpha = sin(alpha)
     sin_beta = sin(beta)
     sin_gamma = sin(gamma)
-    if (a * sin_beta - b * sin_alpha > EPS or
-                        a * sin_gamma - c * sin_alpha > EPS or
-                        b * sin_gamma - c * sin_beta > EPS):
+
+    sine1 = a * sin_beta - b * sin_alpha
+    sine2 = a * sin_gamma - c * sin_alpha
+    sine3 = b * sin_gamma - c * sin_beta
+
+    if (sine1 > EPS or sine2 > EPS or sine3 > EPS):
         if debug:
             print("not satisfying law of sine.")
+            print(sine1, sine2, sine3)
         return False
 
-    if (a2 - b2 - b2 + 2 * bc * cos(alpha) > EPS or b2 - a2 - c2 + 2 * ac * cos(
-            beta) > EPS or
-                            c2 - a2 - b2 + 2 * ab * cos(gamma) > EPS):
+    cosine1 = a2 - b2 - c2 + 2 * bc * cos(alpha)
+    cosine2 = b2 - a2 - c2 + 2 * ac * cos(beta)
+    cosine3 = c2 - a2 - b2 + 2 * ab * cos(gamma)
+
+    if (cosine1 > EPS or cosine2 > EPS or cosine3 > EPS):
         if debug:
             print("not satisfying law of cosine.")
+            print(cosine1, cosine2, cosine3)
         return False
 
     return True
@@ -212,7 +218,7 @@ def main():
                 # law of sine
                 print("More than one solution.")
             else:
-                values[3] = pi - asin(b * sin(alpha) / a)
+                values[3] = asin(b * sin(alpha) / a)
                 beta = values[3]
                 values[5] = pi - alpha - beta
                 gamma = values[5]
@@ -236,7 +242,7 @@ def main():
                 # law of sine
                 print("More than one solution.")
             else:
-                values[5] = pi - asin(c * sin(beta) / b)
+                values[5] = asin(c * sin(beta) / b)
                 gamma = values[5]
                 values[1] = pi - gamma - beta
                 alpha = values[1]
@@ -260,7 +266,7 @@ def main():
                 # law of sine
                 print("More than one solution.")
             else:
-                values[1] = pi - asin(a * sin(gamma) / c)
+                values[1] = asin(a * sin(gamma) / c)
                 alpha = values[1]
                 values[3] = pi - gamma - alpha
                 beta = values[3]
@@ -284,7 +290,7 @@ def main():
                 # law of sine
                 print("More than one solution.")
             else:
-                values[5] = pi - asin(c * sin(alpha) / a)
+                values[5] = asin(c * sin(alpha) / a)
                 gamma = values[5]
                 values[3] = pi - alpha - gamma
                 beta = values[3]
@@ -308,7 +314,7 @@ def main():
                 # law of sine
                 print("More than one solution.")
             else:
-                values[1] = pi - asin(a * sin(beta) / b)
+                values[1] = asin(a * sin(beta) / b)
                 alpha = values[1]
                 values[5] = pi - alpha - beta
                 gamma = values[5]
@@ -332,7 +338,7 @@ def main():
                 # law of sine
                 print("More than one solution.")
             else:
-                values[3] = pi - asin(b * sin(gamma) / c)
+                values[3] = asin(b * sin(gamma) / c)
                 beta = values[3]
                 values[1] = pi - gamma - beta
                 alpha = values[1]
@@ -378,8 +384,8 @@ def main():
                 values[0] = ratio * sin(alpha)
                 values[4] = ratio * sin(gamma)
 
-            # post check
-            print(post_check(values))
+                # post check
+                print(post_check(values))
 
         elif tri_type == '110100':
             # AAS  (a, alpha, beta)
@@ -527,8 +533,10 @@ def main():
                     values[1] = pi - beta - gamma
                     alpha = values[1]
                     values[0] = b / sin(beta) * sin(alpha)
+
                     # post check
                     print(post_check(values))
+
             elif beta < 0:
                 if alpha + gamma > pi:
                     print("Invalid input.")
@@ -560,6 +568,7 @@ def main():
                     values[1] = pi - beta - gamma
                     alpha = values[1]
                     values[4] = b / sin(beta) * sin(gamma)
+
                     # post check
                     print(post_check(values))
 
