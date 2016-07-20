@@ -15,10 +15,11 @@ from collections import deque
 
 def main():
     recs = iter(sys.stdin.readlines())
-    cards = []
+    cards = deque()
     cards_extend = cards.extend
     cards_clear = cards.clear
     tables = []
+    tables_append = tables.append
     tables_clear = tables.clear
 
     while True:
@@ -36,6 +37,11 @@ def main():
                         if idx % 2 == 0)
         dealers = deque(card[1] for idx, card in enumerate(cards)
                         if idx % 2)
+
+        players_extendleft = players.extendleft
+        players_pop = players.pop
+        dealers_extendleft = dealers.extendleft
+        dealers_pop = dealers.pop
         cards_clear()
         tables_clear()
 
@@ -54,9 +60,9 @@ def main():
                 winner = 1
                 break
 
-            # face up card and add it to the top of table
-            curr_card = players.pop() if not turn else dealers.pop()
-            tables.append(curr_card)
+            # face up card and put it to the top of table
+            curr_card = players_pop() if not turn else dealers_pop()
+            tables_append(curr_card)
 
             # play switches
             turn = 1 - turn
@@ -86,8 +92,8 @@ def main():
                         break
 
                     # face up card and add it to the table
-                    curr_card = players.pop() if not turn else dealers.pop()
-                    tables.append(curr_card)
+                    curr_card = players_pop() if not turn else dealers_pop()
+                    tables_append(curr_card)
 
                     if curr_card in {'A', 'J', 'Q', 'K'}:
                         # play switch
@@ -108,15 +114,17 @@ def main():
             if face_card_loop:
                 # it has been into the face cards loop
                 if not turn:
-                    players.extend(tables[::-1])
+                    players_extendleft(tables[:])
+                    tables_clear()
                 else:
-                    dealers.extend(tables[::-1])
-                tables.clear()
+                    while tables:
+                        dealers_extendleft(tables[:])
+                        tables_clear()
 
-        print(winner, len(players), len(dealers))
+        # print(winner+1, len(players), len(dealers))
         # winner, 0: player, 1: dealers
         print("{}{:3d}".format(
-            2 - winner, len(players) if not winner else len(dealers)))
+            winner + 1, len(players) if winner == 1 else len(dealers)))
 
 
 if __name__ == '__main__':
