@@ -18,6 +18,8 @@ def main():
     cards = []
     cards_extend = cards.extend
     cards_clear = cards.clear
+    tables = []
+    tables_clear = tables.clear
 
     while True:
         data = next(recs).split()
@@ -28,15 +30,16 @@ def main():
         if len(cards) < 52:
             continue
 
+        # processing
         # issue card to player first
         players = deque(card[1] for idx, card in enumerate(cards)
                         if idx % 2 == 0)
         dealers = deque(card[1] for idx, card in enumerate(cards)
                         if idx % 2)
         cards_clear()
-        tables = []
+        tables_clear()
 
-        # 0: player, 1: dealer
+        # 0: player, 1: dealer, player first
         turn = 0
         winner = -1
 
@@ -57,9 +60,10 @@ def main():
 
             # play switches
             turn = 1 - turn
-            end = True
+            face_card_loop = False
+
             while curr_card in {'A', 'J', 'Q', 'K'}:
-                end = False
+                face_card_loop = True
                 cnt = 0
                 if curr_card == 'A':
                     cnt = 4
@@ -76,38 +80,42 @@ def main():
                         winner = 0
                         break
 
-                    elif turn and not dealers:
+                    if turn and not dealers:
                         # dealers win
                         winner = 1
                         break
 
                     # face up card and add it to the table
-                    curr_card2 = players.pop() if not turn else dealers.pop()
-                    tables.append(curr_card2)
+                    curr_card = players.pop() if not turn else dealers.pop()
+                    tables.append(curr_card)
 
-                    if curr_card2 in {'A', 'J', 'Q', 'K'}:
-                        # change
+                    if curr_card in {'A', 'J', 'Q', 'K'}:
+                        # play switch
                         break
 
                 if winner >= 0:
                     # someone win the game
                     break
+                # play switches
                 turn = 1 - turn
+
+            # end of face cards
 
             if winner >= 0:
                 # someone win the game
                 break
 
-            if not end:
+            if face_card_loop:
+                # it has been into the face cards loop
                 if not turn:
-                    players.extend(tables)
-                    tables.clear()
+                    players.extend(tables[::-1])
                 else:
-                    dealers.extend(tables)
-                    tables.clear()
+                    dealers.extend(tables[::-1])
+                tables.clear()
 
+        print(winner, len(players), len(dealers))
         # winner, 0: player, 1: dealers
-        print("{} {}".format(
+        print("{}{:3d}".format(
             2 - winner, len(players) if not winner else len(dealers)))
 
 
