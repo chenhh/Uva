@@ -164,6 +164,22 @@ def pre_order(tree, output=[]):
     return output
 
 
+def pre_order_stack(tree):
+    if not tree:
+        return
+
+    stack = [tree, ]
+    while stack:
+        node = stack.pop()
+        print(node['value'])
+
+        if node['lchild']:
+            stack.append(node['lchild'])
+        if node['rchild']:
+            stack.append(node['rchild'])
+
+
+
 def post_order(tree, output=[]):
     """ left -> right -> value """
     if not tree:
