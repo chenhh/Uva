@@ -63,8 +63,8 @@ def min_cut(cuts):
             #                 cost[idx][jdx],
             #                 )
 
-    print(cuts)
-    print(cost)
+    # print(cuts)
+    # print(cost)
     return "The minimum cutting is {}.".format(cost[0][n_cut - 1])
 
 
