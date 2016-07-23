@@ -3,7 +3,7 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 
-status: AC
+status: working
 difficulty: 2
 
 https://uva.onlinejudge.org/external/124/12442.pdf

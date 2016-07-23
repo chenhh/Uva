@@ -3,7 +3,7 @@
 Authors: Hung-Hsin Chen <chenhh@par.cse.nsysu.edu.tw>
 License: GPL v2
 
-status: AC
+status: working
 difficulty: 1
 Q12459 - Bees' ancestors
 https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=279&page=show_problem&problem=3890
