@@ -18,6 +18,12 @@ from collections import deque
 
 
 def bfs(src, tgt, graph):
+    """
+    src: string
+    tgt: string, the same length as src
+    graph: the nodes in the graph has the same length as src and tgt.
+    """
+
     n_node = len(graph.keys())
     visited = {k: False for k in graph.keys()}
     queue = deque([(src, 0), ])
