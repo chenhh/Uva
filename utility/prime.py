@@ -99,4 +99,5 @@ def factorization(value):
 
 
 if __name__ == '__main__':
-    test_prime(65536)
+    # test_prime(65536)
+    print(factorization(6))
