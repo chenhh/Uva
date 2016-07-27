@@ -260,6 +260,27 @@ def word_token(data):
     return words
 
 
+def word_token2(data):
+    """
+    data: string
+    return: words in the string
+    """
+    stack = []
+    words = []
+    for ch in data:
+        if ch.is_alpha():
+            stack.append(ch)
+        elif stack:
+            words.append("".join(stack[:]))
+            stack.clear()
+
+    if stack:
+        words.append("".join(stack[:]))
+        stack.clear()
+
+    return words
+
+
 def palindrome(word):
     return all(word[idx] == word[len(word) - idx - 1]
                for idx in range(len(word) // 2))
