@@ -7,3 +7,15 @@ c++ stringstream issues:
 https://dotblogs.com.tw/v6610688/2013/11/08/cplusplus_stringstream_int_and_string_convert_and_clear
 
 http://stackoverflow.com/questions/3844801/check-if-all-elements-in-a-list-are-identical
+
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    freopen("in.txt","r",stdin);
+    freopen("out.txt","w",stdout);
+
+    ...
+    return 0;
+}
